@@ -1,19 +1,31 @@
-public class Admin extends Akun {
-    private int idAdmin;
-    private String namaLengkap;
-    private String alamat;
-    private String noTelepon;
-    private String email;
+// package models;
 
-    public Admin(int idAkun, int idAdmin, String namaLengkap, String alamat,
-                 String noTelepon, String email, String username, String password) {
-        super(idAkun, username, password); // Memanggil konstruktor dari Akun
+public class Admin extends Akun {
+    // Atribut khusus Admin
+    private String idAdmin; // Misal: "ADM001"
+
+    // Constructor
+    public Admin(String namaLengkap, String alamat, String noTelepon, String email, String username, String password, String idAdmin) {
+        super(namaLengkap, alamat, noTelepon, email, username, password);
         this.idAdmin = idAdmin;
-        this.namaLengkap = namaLengkap;
-        this.alamat = alamat;
-        this.noTelepon = noTelepon;
-        this.email = email;
     }
 
-    // Getter dan Setter (opsional)
+    @Override
+    public String getRole() {
+        return "Admin";
+    }
+
+    // Method khusus Admin (nanti diisi logika)
+    public void registrasiPengguna(Pengguna pengguna) {
+        System.out.println("Admin " + this.namaLengkap + " mendaftarkan " + pengguna.getNamaLengkap());
+    }
+    
+    public void kelolaDataMitra(Mitra mitra) {
+        // Logika CRUD Mitra
+    }
+
+    // Getter dan Setter
+    public String getIdAdmin() {
+        return idAdmin;
+    }
 }
