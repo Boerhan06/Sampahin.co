@@ -15,5 +15,5 @@ public class Admin extends Akun {
         this.email = email;
     }
 
-    // Getter dan Setter (opsional)
 }
+
