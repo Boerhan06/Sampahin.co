@@ -1,27 +1,52 @@
-public class Pengguna {
-    private int idPengguna;
+// package models;
+import java.util.Date;
+
+public class Pengguna extends Akun {
+    // Atribut khusus Pengguna
     private String idKartu;
     private String nomorKartu;
     private double saldoPoin;
-    private double saldo;
-    private String noTelp;
-    private String alamat;
-    private String namaLengkap;
-    private String email;
-    private java.util.Date tanggalDaftar;
+    private double saldo; // Saldo Rupiah
+    private Date tanggalDaftar;
 
-    public Pengguna(int idPengguna, String idKartu, String nomorKartu, double saldoPoin,
-                    double saldo, String noTelp, String alamat, String namaLengkap,
-                    String email, java.util.Date tanggalDaftar) {
-        this.idPengguna = idPengguna;
+    // Constructor
+    public Pengguna(String namaLengkap, String alamat, String noTelepon, String email, String username, String password, String idKartu, String nomorKartu) {
+        // Panggil constructor 'Akun' (induk)
+        super(namaLengkap, alamat, noTelepon, email, username, password);
         this.idKartu = idKartu;
         this.nomorKartu = nomorKartu;
-        this.saldoPoin = saldoPoin;
-        this.saldo = saldo;
-        this.noTelp = noTelp;
-        this.alamat = alamat;
-        this.namaLengkap = namaLengkap;
-        this.email = email;
-        this.tanggalDaftar = tanggalDaftar;
+        this.saldoPoin = 0.0;
+        this.saldo = 0.0;
+        this.tanggalDaftar = new Date(); // Set tanggal hari ini
     }
+
+    // Override method dari Akun
+    @Override
+    public String getRole() {
+        return "Pengguna";
+    }
+
+    // Method khusus Pengguna
+    public void tambahPoin(double poin) {
+        this.saldoPoin += poin;
+    }
+
+    public boolean tukarPoinKeSaldo(double poin) {
+        if (this.saldoPoin >= poin) {
+            this.saldoPoin -= poin;
+            this.saldo += (poin * 1); // Asumsi 1 Poin = Rp 1 [cite: 48]
+            return true;
+        }
+        return false;
+    }
+
+    // Getter dan Setter
+    public String getNomorKartu() {
+        return nomorKartu;
+    }
+    
+    public double getSaldoPoin() {
+        return saldoPoin;
+    }
+    // ... getter/setter lainnya ...
 }
