@@ -1,3 +1,5 @@
+package models;
+
 import javafx.beans.property.*;
 import java.time.LocalDateTime;
 // Nanti tambahkan library hashing, contoh: import org.mindrot.jbcrypt.BCrypt;

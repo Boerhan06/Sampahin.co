@@ -1,3 +1,5 @@
+package models;
+
 // package models; // Sudah benar di package model
 import javafx.beans.property.*;
 import java.math.BigDecimal;

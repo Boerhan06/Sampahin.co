@@ -1,8 +1,11 @@
-package com.sampahin.dao;
+/* * PERBAIKAN: package diubah menjadi "dao" (sesuai folder Anda)
+ */
+package dao;
 
-import com.sampahin.model.Pengguna;
-import com.sampahin.util.DatabaseConnection;
-import com.sampahin.util.HashingUtils;
+/* * PERBAIKAN: import diubah untuk mengambil dari package "models" dan "util"
+ */
+import models.Pengguna;
+import util.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -11,8 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList; 
+import java.util.List;     
 
-//CRUD ke database yaw
 public class PenggunaDAO {
     private Connection connection;
     public PenggunaDAO() {
@@ -34,15 +38,15 @@ public class PenggunaDAO {
             stmt.setString(3, pengguna.getNoTelepon());
             stmt.setString(4, pengguna.getEmail());
             stmt.setString(5, pengguna.getUsername());
-            stmt.setString(6, hashedPassword); // Simpan HASH
-            stmt.setBoolean(7, true); // (isActive)
-            stmt.setObject(8, LocalDateTime.now()); // (created_at)
-            stmt.setObject(9, LocalDateTime.now()); // (updated_at)
+            stmt.setString(6, hashedPassword); 
+            stmt.setBoolean(7, true); 
+            stmt.setObject(8, LocalDateTime.now()); 
+            stmt.setObject(9, LocalDateTime.now()); 
             stmt.setString(10, pengguna.getIdKartu());
             stmt.setString(11, pengguna.getNomorKartu());
-            stmt.setBigDecimal(12, BigDecimal.ZERO); // (saldo_poin awal)
-            stmt.setBigDecimal(13, BigDecimal.ZERO); // (saldo_rupiah awal)
-            stmt.setObject(14, LocalDate.now()); // (tanggal_daftar)
+            stmt.setBigDecimal(12, BigDecimal.ZERO); 
+            stmt.setBigDecimal(13, BigDecimal.ZERO); 
+            stmt.setObject(14, LocalDate.now()); 
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -54,7 +58,7 @@ public class PenggunaDAO {
     }
 
 
-    // --- READ (R)
+    // --- READ (R) - Single by Username ---
     public Pengguna getPenggunaByUsername(String username) {
         String sql = "SELECT * FROM pengguna WHERE username = ?";
         Pengguna pengguna = null;
@@ -71,7 +75,7 @@ public class PenggunaDAO {
                         rs.getString("no_telepon"),
                         rs.getString("email"),
                         rs.getString("username"),
-                        rs.getString("hashed_password"), // Ambil hash, BUKAN plain text
+                        rs.getString("hashed_password"), 
                         rs.getBoolean("is_active"),
                         rs.getObject("created_at", LocalDateTime.class),
                         rs.getObject("updated_at", LocalDateTime.class),
@@ -86,7 +90,40 @@ public class PenggunaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return pengguna; // return null jika tidak ditemukan
+        return pengguna; 
+    }
+
+    // --- READ (R) - Single by ID ---
+    public Pengguna getPenggunaById(int id) {
+        String sql = "SELECT * FROM pengguna WHERE id_akun = ?";
+        Pengguna pengguna = null;
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                pengguna = new Pengguna(
+                        rs.getInt("id_akun"),
+                        rs.getString("nama_lengkap"),
+                        rs.getString("alamat"),
+                        rs.getString("no_telepon"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("hashed_password"),
+                        rs.getBoolean("is_active"),
+                        rs.getObject("created_at", LocalDateTime.class),
+                        rs.getObject("updated_at", LocalDateTime.class),
+                        rs.getString("id_kartu"),
+                        rs.getString("nomor_kartu"),
+                        rs.getBigDecimal("saldo_poin"),
+                        rs.getBigDecimal("saldo_rupiah"),
+                        rs.getObject("tanggal_daftar", LocalDate.class)
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pengguna;
     }
 
 

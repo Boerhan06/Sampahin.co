@@ -1,7 +1,15 @@
-package com.sampahin.dao;
+/* * PERBAIKAN: package adalah 'dao'
+ */
+package dao;
 
-import com.sampahin.model.*; // Import semua model
-import com.sampahin.util.DatabaseConnection;
+/* * PERBAIKAN: import duplikat dihapus, dan disesuaikan ke 'models' dan 'util'
+ */
+import models.Mitra;
+import models.Pengguna;
+import models.Sampah;
+import models.TransaksiSampah;
+import models.TitikPengumpulan;
+import util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +22,7 @@ import java.util.List;
 public class TransaksiSampahDAO {
 
     private Connection connection;
-
-    // --- SEMUA DEPENDENSI DAO ---
+    
     private PenggunaDAO penggunaDAO;
     private MitraDAO mitraDAO;
     private TitikPengumpulanDAO titikPengumpulanDAO;
@@ -23,13 +30,11 @@ public class TransaksiSampahDAO {
 
     public TransaksiSampahDAO() {
         this.connection = DatabaseConnection.getInstance();
-        // Inisialisasi semua DAO yang dibutuhkan
         this.penggunaDAO = new PenggunaDAO();
         this.mitraDAO = new MitraDAO();
         this.titikPengumpulanDAO = new TitikPengumpulanDAO();
         this.sampahDAO = new SampahDAO();
     }
-
 
     // --- CREATE (C) ---
     public boolean save(TransaksiSampah trx) {
@@ -37,7 +42,6 @@ public class TransaksiSampahDAO {
                 "berat_kg, total_poin_didapat, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            // Ambil semua ID dari objek-objek terkait
             stmt.setInt(1, trx.getPengguna().getIdAkun());
             stmt.setInt(2, trx.getMitra().getIdAkun());
             stmt.setInt(3, trx.getLokasi().getIdLokasi());
@@ -54,24 +58,18 @@ public class TransaksiSampahDAO {
         }
     }
 
-
     // --- READ (R) - Helper Method ---
     private TransaksiSampah mapResultSetToTransaksi(ResultSet rs) throws SQLException {
-        // 1. Ambil semua Foreign Key (ID)
         int idPengguna = rs.getInt("id_pengguna");
         int idMitra = rs.getInt("id_mitra");
         int idLokasi = rs.getInt("id_lokasi");
         int idSampah = rs.getInt("id_sampah");
 
-        // 2. Gunakan DAO lain untuk "menghidupkan" objek
-        // (Asumsi Anda punya/buat method getById di semua DAO ini)
         Pengguna pengguna = penggunaDAO.getPenggunaById(idPengguna);
-        Mitra mitra = mitraDAO.getMitraById(idMitra); // Anda perlu buat method ini
+        Mitra mitra = mitraDAO.getMitraById(idMitra); 
         TitikPengumpulan lokasi = titikPengumpulanDAO.getById(idLokasi);
-        Sampah sampah = sampahDAO.getById(idSampah); // Anda perlu buat method ini
+        Sampah sampah = sampahDAO.getById(idSampah); 
 
-        // 3. Buat objek TransaksiSampah lengkap (perlu constructor baru)
-        // Pastikan model TransaksiSampah punya constructor ini
         return new TransaksiSampah(
                 rs.getInt("id_transaksi"),
                 pengguna,
@@ -83,7 +81,6 @@ public class TransaksiSampahDAO {
                 rs.getObject("timestamp", LocalDateTime.class)
         );
     }
-
 
     // --- READ (R) - All by Pengguna (Paling Berguna) ---
     public List<TransaksiSampah> getAllByPengguna(int idPengguna) {
@@ -101,5 +98,4 @@ public class TransaksiSampahDAO {
         }
         return listTrx;
     }
-
 }

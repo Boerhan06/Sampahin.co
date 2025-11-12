@@ -1,3 +1,5 @@
+package models;
+
 // package models;
 import javafx.beans.property.*;
 import java.math.BigDecimal;
@@ -82,4 +84,8 @@ public class TransaksiMitra {
 
     public String getStatus() { return status.get(); }
     public StringProperty statusProperty() { return status; }
+
+    public String getKategoriSampahTerjual() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

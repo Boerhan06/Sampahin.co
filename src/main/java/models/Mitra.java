@@ -1,3 +1,5 @@
+package models;
+
 // package models;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

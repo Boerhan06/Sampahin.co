@@ -1,4 +1,4 @@
-package com.sampahin.util;
+package util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

@@ -1,7 +1,11 @@
-package com.sampahin.dao;
+/* * PERBAIKAN: package adalah 'dao'
+ */
+package dao;
 
-import com.sampahin.model.TitikPengumpulan;
-import com.sampahin.util.DatabaseConnection;
+/* * PERBAIKAN: import duplikat dihapus, dan disesuaikan ke 'models' dan 'util'
+ */
+import models.TitikPengumpulan;
+import util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +15,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TitikPengumpulanDAO {
 
     private Connection connection;
@@ -19,7 +22,6 @@ public class TitikPengumpulanDAO {
     public TitikPengumpulanDAO() {
         this.connection = DatabaseConnection.getInstance();
     }
-
 
     // --- CREATE (C) ---
     public boolean save(TitikPengumpulan lokasi) {
@@ -36,7 +38,6 @@ public class TitikPengumpulanDAO {
             return false;
         }
     }
-
 
     // --- READ (R) - Single by ID ---
     public TitikPengumpulan getById(int id) {
@@ -60,7 +61,6 @@ public class TitikPengumpulanDAO {
         return lokasi;
     }
 
-
     // --- READ (R) - All ---
     public List<TitikPengumpulan> getAll() {
         String sql = "SELECT * FROM titik_pengumpulan";
@@ -82,7 +82,6 @@ public class TitikPengumpulanDAO {
         return listLokasi;
     }
 
-
     // --- UPDATE (U) ---
     public boolean update(TitikPengumpulan lokasi) {
         String sql = "UPDATE titik_pengumpulan SET nama_lokasi = ?, alamat_lokasi = ? WHERE id_lokasi = ?";
@@ -90,7 +89,7 @@ public class TitikPengumpulanDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, lokasi.getNamaLokasi());
             stmt.setString(2, lokasi.getAlamatLokasi());
-            stmt.setInt(3, lokasi.getIdLokasi()); // Klausul WHERE
+            stmt.setInt(3, lokasi.getIdLokasi()); 
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -99,7 +98,6 @@ public class TitikPengumpulanDAO {
             return false;
         }
     }
-
 
     // --- DELETE (D) ---
     public boolean delete(int id) {

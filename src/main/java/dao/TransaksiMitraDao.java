@@ -1,9 +1,13 @@
-package com.sampahin.dao;
+/* * PERBAIKAN: package adalah 'dao'
+ */
+package dao;
 
-import com.sampahin.model.Admin;
-import com.sampahin.model.TitikPengumpulan;
-import com.sampahin.model.TransaksiMitra;
-import com.sampahin.util.DatabaseConnection;
+/* * PERBAIKAN: import duplikat dihapus, dan disesuaikan ke 'models' dan 'util'
+ */
+import models.Admin;
+import models.TitikPengumpulan;
+import models.TransaksiMitra;
+import util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,12 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TransaksiMitraDAO {
 
     private Connection connection;
-
-    // --- Dependensi DAO ---
     private TitikPengumpulanDAO titikPengumpulanDAO;
     private AdminDAO adminDAO;
 
@@ -51,18 +52,14 @@ public class TransaksiMitraDAO {
         }
     }
 
-
     // --- READ (R) - Helper Method ---
     private TransaksiMitra mapResultSetToTransaksi(ResultSet rs) throws SQLException {
-        // 1. Ambil Foreign Keys
         int idLokasi = rs.getInt("id_lokasi");
         int idAdmin = rs.getInt("id_admin");
 
-        // 2. "Hidupkan" Objek
         TitikPengumpulan lokasi = titikPengumpulanDAO.getById(idLokasi);
-        Admin admin = adminDAO.getAdminById(idAdmin); // Anda perlu buat method ini
+        Admin admin = adminDAO.getAdminById(idAdmin); 
 
-        // 3. Buat Objek TransaksiMitra lengkap
         return new TransaksiMitra(
                 rs.getInt("id_transaksi_mitra"),
                 lokasi,
@@ -75,7 +72,6 @@ public class TransaksiMitraDAO {
                 rs.getString("status")
         );
     }
-
 
     // --- READ (R) - All by Lokasi ---
     public List<TransaksiMitra> getAllByLokasi(int idLokasi) {
@@ -93,7 +89,6 @@ public class TransaksiMitraDAO {
         }
         return listTrx;
     }
-
 
     // --- UPDATE (U) ---
     public boolean updateStatus(int idTransaksi, String newStatus) {

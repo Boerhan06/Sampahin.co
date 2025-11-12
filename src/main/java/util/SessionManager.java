@@ -1,6 +1,7 @@
-package com.sampahin.util;
+package util;
 
-import com.sampahin.model.Akun; // (Import model Akun Anda)
+import models.Akun;
+import models.Akun; // (Import model Akun Anda)
 
 public class SessionManager {
 

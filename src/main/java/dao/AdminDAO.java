@@ -1,8 +1,8 @@
-package com.sampahin.dao;
+package dao; 
 
-import com.sampahin.model.Admin;
-import com.sampahin.util.DatabaseConnection;
-import com.sampahin.util.HashingUtils; // Kita butuh ini untuk C (Create)
+import models.Admin;
+import util.DatabaseConnection;
+import util.HashingUtils; 
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +27,6 @@ public class AdminDAO {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            // Hash password di sini
             String hashedPassword = HashingUtils.hashPassword(plainPassword);
 
             stmt.setString(1, admin.getNamaLengkap());
@@ -50,7 +49,7 @@ public class AdminDAO {
         }
     }
 
-    // --- READ (R) ---
+    // --- READ (R) - Single by Username ---
     public Admin getAdminByUsername(String username) {
         String sql = "SELECT * FROM admin WHERE username = ?";
         Admin admin = null;
@@ -61,7 +60,7 @@ public class AdminDAO {
 
             if (rs.next()) {
                 admin = new Admin(
-                        rs.getInt("id_akun"), // Asumsi ada kolom id_akun (PK)
+                        rs.getInt("id_akun"), 
                         rs.getString("nama_lengkap"),
                         rs.getString("alamat"),
                         rs.getString("no_telepon"),
@@ -77,7 +76,35 @@ public class AdminDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return admin; // null jika tidak ditemukan
+        return admin; 
+    }
+    
+    // --- READ (R) - Single by ID ---
+    public Admin getAdminById(int id) {
+        String sql = "SELECT * FROM admin WHERE id_akun = ?";
+        Admin admin = null;
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                 admin = new Admin(
+                        rs.getInt("id_akun"), 
+                        rs.getString("nama_lengkap"),
+                        rs.getString("alamat"),
+                        rs.getString("no_telepon"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("hashed_password"),
+                        rs.getBoolean("is_active"),
+                        rs.getObject("created_at", LocalDateTime.class),
+                        rs.getObject("updated_at", LocalDateTime.class),
+                        rs.getString("id_admin")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return admin;
     }
 
 
@@ -127,7 +154,7 @@ public class AdminDAO {
             stmt.setBoolean(6, admin.getIsActive());
             stmt.setObject(7, LocalDateTime.now());
             stmt.setString(8, admin.getIdAdmin());
-            stmt.setInt(9, admin.getIdAkun()); // Klausul WHERE
+            stmt.setInt(9, admin.getIdAkun()); 
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

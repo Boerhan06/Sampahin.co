@@ -1,10 +1,14 @@
-package com.sampahin.dao;
+/* * PERBAIKAN: package adalah 'dao'
+ */
+package dao;
 
-import com.sampahin.model.Sampah;
-import com.sampahin.model.SampahAnorganik;
-import com.sampahin.model.SampahB3;
-import com.sampahin.model.SampahOrganik;
-import com.sampahin.util.DatabaseConnection;
+/* * PERBAIKAN: import duplikat dihapus, dan disesuaikan ke 'models' dan 'util'
+ */
+import models.Sampah;
+import models.SampahAnorganik;
+import models.SampahB3;
+import models.SampahOrganik;
+import util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,14 +36,13 @@ public class SampahDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, sampah.getJenisSampah());
             stmt.setBigDecimal(2, sampah.getHargaPoinPerKg());
-            stmt.setString(3, sampah.getKategori()); // Ambil kategori dari method abstract
+            stmt.setString(3, sampah.getKategori()); 
 
-            // Cek tipe spesifik untuk kolom khusus
             if (sampah instanceof SampahOrganik) {
                 stmt.setObject(4, ((SampahOrganik) sampah).getPerkiraanBusuk());
-                stmt.setNull(5, Types.VARCHAR); // Kolom B3 dikosongkan
+                stmt.setNull(5, Types.VARCHAR); 
             } else if (sampah instanceof SampahB3) {
-                stmt.setNull(4, Types.DATE); // Kolom Organik dikosongkan
+                stmt.setNull(4, Types.DATE); 
                 stmt.setString(5, ((SampahB3) sampah).getPetunjukPenanganan());
             } else { // Anorganik
                 stmt.setNull(4, Types.DATE);
@@ -54,7 +57,61 @@ public class SampahDAO {
             return false;
         }
     }
+    
+    // --- READ (R) - Helper Method ---
+    /**
+     * Helper untuk mengubah ResultSet menjadi Objek Sampah yang tepat (Organik/B3/dll)
+     */
+    private Sampah mapResultSetToSampah(ResultSet rs) throws SQLException {
+        String kategori = rs.getString("kategori");
+        Sampah sampah = null; 
 
+        switch (kategori) {
+            case "Organik":
+                sampah = new SampahOrganik(
+                        rs.getInt("id_sampah"),
+                        rs.getString("jenis_sampah"),
+                        rs.getBigDecimal("harga_poin_per_kg"),
+                        rs.getObject("perkiraan_busuk", LocalDate.class)
+                );
+                break;
+
+            case "Anorganik":
+                sampah = new SampahAnorganik(
+                        rs.getInt("id_sampah"),
+                        rs.getString("jenis_sampah"),
+                        rs.getBigDecimal("harga_poin_per_kg")
+                );
+                break;
+
+            case "B3":
+                sampah = new SampahB3(
+                        rs.getInt("id_sampah"),
+                        rs.getString("jenis_sampah"),
+                        rs.getBigDecimal("harga_poin_per_kg"),
+                        rs.getString("petunjuk_penanganan")
+                );
+                break;
+        }
+        return sampah;
+    }
+
+    // --- READ (R) - Single by ID (PENTING untuk DAO lain) ---
+    /* * PENAMBAHAN: Method ini dibutuhkan oleh TransaksiSampahDAO
+     */
+    public Sampah getById(int id) {
+        String sql = "SELECT * FROM sampah WHERE id_sampah = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapResultSetToSampah(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // --- READ (R) - All ---
     public List<Sampah> getAllSampah() {
@@ -63,44 +120,8 @@ public class SampahDAO {
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
-                // 1. Ambil kolom pembeda
-                String kategori = rs.getString("kategori");
-
-                // 2. Variabel untuk menampung objek
-                Sampah sampah = null;
-
-                // 3. Tentukan objek mana yang akan dibuat
-                switch (kategori) {
-                    case "Organik":
-                        sampah = new SampahOrganik(
-                                rs.getInt("id_sampah"),
-                                rs.getString("jenis_sampah"),
-                                rs.getBigDecimal("harga_poin_per_kg"),
-                                rs.getObject("perkiraan_busuk", LocalDate.class)
-                        );
-                        break;
-
-                    case "Anorganik":
-                        sampah = new SampahAnorganik(
-                                rs.getInt("id_sampah"),
-                                rs.getString("jenis_sampah"),
-                                rs.getBigDecimal("harga_poin_per_kg")
-                        );
-                        break;
-
-                    case "B3":
-                        sampah = new SampahB3(
-                                rs.getInt("id_sampah"),
-                                rs.getString("jenis_sampah"),
-                                rs.getBigDecimal("harga_poin_per_kg"),
-                                rs.getString("petunjuk_penanganan")
-                        );
-                        break;
-                }
-
-                // 4. Tambahkan ke list jika objek berhasil dibuat
+                Sampah sampah = mapResultSetToSampah(rs);
                 if (sampah != null) {
                     sampahList.add(sampah);
                 }
@@ -120,10 +141,9 @@ public class SampahDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, sampah.getJenisSampah());
-            stmt.setBigDecimal(2, sampah.getHarga_poin_per_kg());
+            stmt.setBigDecimal(2, sampah.getHargaPoinPerKg()); // PERBAIKAN: getHarga_poin_per_kg() jadi getHargaPoinPerKg()
             stmt.setString(3, sampah.getKategori());
 
-            // Logika 'instanceof' yang sama seperti save()
             if (sampah instanceof SampahOrganik) {
                 stmt.setObject(4, ((SampahOrganik) sampah).getPerkiraanBusuk());
                 stmt.setNull(5, Types.VARCHAR);
@@ -134,7 +154,7 @@ public class SampahDAO {
                 stmt.setNull(4, Types.DATE);
                 stmt.setNull(5, Types.VARCHAR);
             }
-
+            
             stmt.setInt(6, sampah.getIdSampah()); // Klausul WHERE
 
             int rowsAffected = stmt.executeUpdate();
