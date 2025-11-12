@@ -3,27 +3,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.time.LocalDateTime;
 
-/**
- * Kelas Admin (turunan Akun)
- * Dibuat dengan JavaFX Properties untuk UI Binding.
- */
 public class Admin extends Akun {
+    private StringProperty idAdmin;
 
-    // --- Atribut Khusus Admin ---
-    private StringProperty idAdmin; // Misal: "ADM001"
-
-    /**
-     * Constructor 1: Untuk membuat Admin BARU
-     */
+    //Konstruktor 1
     public Admin(String namaLengkap, String alamat, String noTelepon, String email, String username, String plainPassword, String idAdmin) {
-        // Panggil constructor Akun (induk) untuk user BARU
         super(namaLengkap, alamat, noTelepon, email, username, plainPassword);
         this.idAdmin = new SimpleStringProperty(idAdmin);
     }
 
-    /**
-     * Constructor 2: Untuk memuat Admin dari DATABASE
-     */
+    //Konstruktor 2
     public Admin(int idAkun, String namaLengkap, String alamat, String noTelepon, String email, String username,
                  String dbHashedPassword, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt, // <-- Atribut Akun
                  String idAdmin) { // <-- Atribut Admin

@@ -1,37 +1,24 @@
-// package models; // Sesuaikan nama package Anda
-
 import javafx.beans.property.*;
 import java.time.LocalDateTime;
 // Nanti tambahkan library hashing, contoh: import org.mindrot.jbcrypt.BCrypt;
 
-/**
- * Kelas Akun Abstrak (Basis Model)
- * Menggunakan JavaFX Properties untuk kemudahan binding data ke UI (View).
- * Semua atribut yang akan ditampilkan atau di-edit di UI harus menggunakan Property.
- */
 public abstract class Akun {
 
-    // Atribut (sekarang menggunakan Properti JavaFX)
     protected IntegerProperty idAkun;
     protected StringProperty namaLengkap;
     protected StringProperty alamat;
     protected StringProperty noTelepon;
     protected StringProperty email;
     protected StringProperty username;
-    protected StringProperty hashedPassword; // Nama diubah, ini akan menyimpan HASH
+    protected StringProperty hashedPassword; // jadi pwnya diubah ke HASH euy
 
-    // Atribut metadata (Sangat penting untuk aplikasi nyata)
+    // Atribut metadata istilah katanya "datanya dari data" wkwk
     protected BooleanProperty isActive; // Untuk status (aktif/dinonaktifkan)
     protected ObjectProperty<LocalDateTime> createdAt; // Kapan akun dibuat
     protected ObjectProperty<LocalDateTime> updatedAt; // Kapan terakhir diubah
 
-    /**
-     * Constructor 1: Untuk membuat Akun BARU (misal: saat registrasi)
-     * ID belum ada (diasumsikan auto-increment di database).
-     * Password dalam bentuk teks biasa (plain text) dan akan di-hash.
-     */
+    //Konstruktor 1
     public Akun(String namaLengkap, String alamat, String noTelepon, String email, String username, String plainPassword) {
-        // Inisialisasi properti
         this.idAkun = new SimpleIntegerProperty(0); // 0 atau -1 sebagai penanda 'baru'
         this.namaLengkap = new SimpleStringProperty(namaLengkap);
         this.alamat = new SimpleStringProperty(alamat);
@@ -49,13 +36,9 @@ public abstract class Akun {
         this.setAndHashPassword(plainPassword);
     }
 
-    /**
-     * Constructor 2: Untuk memuat Akun dari DATABASE
-     * Semua data sudah lengkap, termasuk ID dan hash password.
-     */
+    //konstruktor 2
     public Akun(int idAkun, String namaLengkap, String alamat, String noTelepon, String email, String username,
                 String dbHashedPassword, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
-
         this.idAkun = new SimpleIntegerProperty(idAkun);
         this.namaLengkap = new SimpleStringProperty(namaLengkap);
         this.alamat = new SimpleStringProperty(alamat);
@@ -68,15 +51,11 @@ public abstract class Akun {
         this.updatedAt = new SimpleObjectProperty<>(updatedAt);
     }
 
-    // Abstract method (wajib di-override oleh anak)
+    // Abstract method (wajib di-override oleh anak anak yooo)
     public abstract String getRole();
 
-    // --- Penanganan Password yang Aman ---
 
-    /**
-     * Meng-hash password yang diberikan dan menyimpannya.
-     * @param plainPassword Password teks biasa (yang diketik pengguna)
-     */
+    // --- Penanganan Password yang Aman (Alias di has sih hehe) ---
     public void setAndHashPassword(String plainPassword) {
         // DI SINI Anda implementasikan library hashing. Contoh BCrypt:
         // String hash = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
@@ -90,11 +69,8 @@ public abstract class Akun {
         // --- !! Batas Placeholder !! ---
     }
 
-    /**
-     * Memeriksa apakah password yang diberikan cocok dengan hash yang tersimpan.
-     * @param plainPassword Password teks biasa untuk dicek
-     * @return true jika cocok, false jika tidak
-     */
+
+    //Ngecek sama enggak sih paswordnya sama yang udah di hash
     public boolean checkPassword(String plainPassword) {
         // Contoh implementasi pengecekan BCrypt:
         // return BCrypt.checkpw(plainPassword, this.hashedPassword.get());
@@ -106,55 +82,55 @@ public abstract class Akun {
     }
 
 
-    // --- JavaFX Getters, Setters, dan Property Methods ---
-    // Pola ini (getX, setX, xProperty) adalah standar JavaFX
 
-    // --- ID Akun ---
+    //              JavaFX Getters, Setters, dan Property Methods
+
+    // --- ID Akun
     public int getIdAkun() { return idAkun.get(); }
     public void setIdAkun(int idAkun) { this.idAkun.set(idAkun); }
     public IntegerProperty idAkunProperty() { return idAkun; }
 
-    // --- Nama Lengkap ---
+    // --- Nama Lengkap
     public String getNamaLengkap() { return namaLengkap.get(); }
     public void setNamaLengkap(String namaLengkap) { this.namaLengkap.set(namaLengkap); }
     public StringProperty namaLengkapProperty() { return namaLengkap; }
 
-    // --- Alamat ---
+    // --- Alamat
     public String getAlamat() { return alamat.get(); }
     public void setAlamat(String alamat) { this.alamat.set(alamat); }
     public StringProperty alamatProperty() { return alamat; }
 
-    // --- No Telepon ---
+    // --- No Telepon
     public String getNoTelepon() { return noTelepon.get(); }
     public void setNoTelepon(String noTelepon) { this.noTelepon.set(noTelepon); }
     public StringProperty noTeleponProperty() { return noTelepon; }
 
-    // --- Email ---
+    // --- Email
     public String getEmail() { return email.get(); }
     public void setEmail(String email) { this.email.set(email); }
     public StringProperty emailProperty() { return email; }
 
-    // --- Username ---
+    // --- Username
     public String getUsername() { return username.get(); }
     public void setUsername(String username) { this.username.set(username); }
     public StringProperty usernameProperty() { return username; }
 
-    // --- Hashed Password ---
+    // --- Hashed Password
     // (Hati-hati, biasanya kita tidak membuat setter publik untuk hash)
     public String getHashedPassword() { return hashedPassword.get(); }
     public StringProperty hashedPasswordProperty() { return hashedPassword; }
 
-    // --- Is Active ---
+    // --- Is Active
     public boolean getIsActive() { return isActive.get(); }
     public void setIsActive(boolean isActive) { this.isActive.set(isActive); }
     public BooleanProperty isActiveProperty() { return isActive; }
 
-    // --- Created At ---
+    // --- Created At
     public LocalDateTime getCreatedAt() { return createdAt.get(); }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt.set(createdAt); }
     public ObjectProperty<LocalDateTime> createdAtProperty() { return createdAt; }
 
-    // --- Updated At ---
+    // --- Updated At
     public LocalDateTime getUpdatedAt() { return updatedAt.get(); }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt.set(updatedAt); }
     public ObjectProperty<LocalDateTime> updatedAtProperty() { return updatedAt; }
