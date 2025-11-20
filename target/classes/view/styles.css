@@ -1,0 +1,83 @@
+/* Palet Ungu Pastel (Versi Perbaikan) */
+:root {
+    -fx-base: #FFFFFF;
+    
+    -fx-primary-color: #9370DB; /* MediumPurple - Untuk Tombol */
+    -fx-secondary-color: #D1C4E9; /* DeepPurple-100 - Aksen/Header */
+    
+    /* * PERBAIKAN: 
+     * Nama variabel diubah dari -fx-background-color menjadi -fx-main-background
+     * untuk menghindari infinite loop.
+     */
+    -fx-main-background: #F3E5F5; /* Purple-50 - Background utama */
+    
+    -fx-text-primary-color: #4A148C; /* Purple-900 - Teks Judul */
+    -fx-text-secondary-color: #333333; /* Teks biasa */
+    -fx-error-color: #D32F2F; /* Merah untuk error */
+}
+
+/* * PERBAIKAN: 
+ * Sekarang menggunakan variabel -fx-main-background yang aman.
+ */
+.root {
+    -fx-background-color: -fx-main-background;
+    -fx-font-family: 'Arial';
+}
+
+/* --- KOMPONEN UTAMA --- */
+
+.label {
+    -fx-text-fill: -fx-text-secondary-color;
+    -fx-font-size: 14px;
+}
+
+.header-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary-color;
+}
+
+.button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 8px;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-primary-color, 20%);
+}
+
+.text-field, .password-field {
+    -fx-font-size: 14px;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-border-width: 2px;
+}
+
+/* --- KOMPONEN SPESIFIK --- */
+
+.error-label {
+    -fx-text-fill: -fx-error-color;
+    -fx-font-weight: bold;
+}
+
+.sidebar {
+    -fx-background-color: -fx-secondary-color;
+    -fx-padding: 20px;
+}
+
+.poin-label {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
