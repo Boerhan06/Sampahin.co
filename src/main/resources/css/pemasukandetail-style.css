@@ -1,0 +1,109 @@
+/* --- PALET WARNA --- */
+* {
+    -fx-bg-color: #F9FAF4;
+    -fx-purple-dark: #685BAB;   /* Kolom Gelap & Sidebar */
+    -fx-purple-mid: #9C90D9;    /* Kolom Terang & Card Background */
+    -fx-purple-light: #D6CCEB;  /* Header BG & Footer */
+    -fx-white: #FFFFFF;
+    -fx-text-dark: #333333;
+}
+
+.root-pane {
+    -fx-background-color: -fx-bg-color;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    -fx-background-color: -fx-purple-dark;
+    -fx-background-radius: 0 35 35 0;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-purple-mid;
+    -fx-font-size: 22px;
+    -fx-cursor: hand;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: white;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: -fx-white;
+    -fx-text-fill: -fx-purple-dark;
+    -fx-font-size: 22px;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* --- HEADER JUDUL --- */
+.header-bg {
+    -fx-background-color: -fx-purple-light; /* Warna ungu pudar di atas */
+    -fx-background-radius: 20;
+}
+
+/* --- MAIN CARD CONTAINER --- */
+.main-card {
+    -fx-background-color: rgba(255,255,255,0.6); /* Semi transparan putih di belakang */
+    -fx-background-radius: 30;
+    -fx-padding: 0 0 0 0; /* Padding 0 agar kolom warna mentok */
+}
+
+.subheader-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+/* --- KOLOM VERTIKAL --- */
+/* Style untuk kolom warna ungu TERANG (#9C90D9) */
+.column-light {
+    -fx-background-color: -fx-purple-mid;
+    -fx-padding: 20 10 20 10;
+}
+
+/* Style untuk kolom warna ungu GELAP (#685BAB) */
+.column-dark {
+    -fx-background-color: -fx-purple-dark;
+    -fx-padding: 20 10 20 10;
+}
+
+/* Teks di dalam kolom */
+.column-header {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+}
+
+.column-value {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.column-detail {
+    -fx-text-fill: rgba(255,255,255, 0.8);
+    -fx-font-size: 14px;
+}
+
+/* --- FOOTER TOTAL --- */
+.footer-bar {
+    -fx-background-color: -fx-purple-light; /* #D6CCEB */
+    -fx-background-radius: 0 0 30 30; /* Rounded hanya di bawah */
+}
+
+.footer-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}

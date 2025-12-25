@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane styleClass="root-pane" stylesheets="@detailpengguna.css" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DetailPenggunaController">
+
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        
+        <VBox styleClass="sidebar" prefWidth="90.0" alignment="TOP_CENTER" spacing="25.0">
+            <padding><Insets top="50.0" /></padding>
+            <Button styleClass="sidebar-btn" text="🏠" />
+            <Button styleClass="sidebar-btn-active" text="👤" /> <Button styleClass="sidebar-btn" text="🗺️" />
+            <Button styleClass="sidebar-btn" text="⚙️" />
+        </VBox>
+
+        <AnchorPane HBox.hgrow="ALWAYS">
+            
+            <Label text="Detail Pengguna" styleClass="header-badge" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0" />
+
+            <VBox fx:id="mainContent" spacing="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                
+                <VBox styleClass="name-banner" alignment="CENTER" prefHeight="60.0">
+                    <Label fx:id="lblNamaPengguna" text="Nama Pengguna" styleClass="name-text" />
+                </VBox>
+
+                <HBox spacing="20.0" prefHeight="350.0">
+                    
+                    <VBox fx:id="cardPoin" styleClass="info-card, card-poin" prefWidth="400.0" alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Total Poin" styleClass="card-title" />
+                        
+                        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <Label fx:id="lblTotalPoin" text="0" styleClass="poin-value" />
+                            <Label text="Poin Tersedia" styleClass="poin-sub" />
+                        </VBox>
+                    </VBox>
+
+                    <VBox fx:id="cardGrafik" styleClass="info-card, card-grafik" HBox.hgrow="ALWAYS" spacing="10.0">
+                        <Label text="Grafik Transaksi (6 Bulan Terakhir)" styleClass="card-title" />
+                        
+                        <VBox fx:id="cardGrafik" styleClass="info-card, card-grafik" HBox.hgrow="ALWAYS" spacing="10.0">
+                            <Label text="Grafik Transaksi (6 Bulan Terakhir)" styleClass="card-title" />
+                            <VBox fx:id="chartContainer" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;" alignment="CENTER"/>
+
+                        </VBox>
+                    </VBox>
+
+                </HBox>
+
+            </VBox>
+
+        </AnchorPane>
+
+    </HBox>
+
+</AnchorPane>

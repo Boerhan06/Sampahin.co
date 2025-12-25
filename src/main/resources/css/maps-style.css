@@ -1,0 +1,114 @@
+/* --- PALET WARNA (Sesuai Gambar) --- */
+* {
+    -fx-bg-color: #F9FAF4;
+    -fx-purple-dark: #685BAB; /* Ungu Gelap (Sidebar/Map) */
+    -fx-purple-mid: #7B70B4;  /* Ungu Sedang */
+    -fx-purple-light: #9C90D9; /* Ungu Terang (Header Lokasi) */
+    -fx-purple-faded: #D6CCEB; /* Search Bar BG */
+    -fx-white: #FFFFFF;
+}
+
+.root-pane {
+    -fx-background-color: -fx-bg-color;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    -fx-background-color: -fx-purple-mid;
+    -fx-background-radius: 30; /* Sangat rounded sesuai gambar */
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-cursor: hand;
+    -fx-background-radius: 50;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: -fx-white;
+    -fx-text-fill: -fx-purple-dark;
+    -fx-font-size: 24px;
+    -fx-background-radius: 50;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* --- HEADER COMPONENTS --- */
+.header-pill {
+    -fx-background-color: #E0E0E0; /* Abu-abu muda pill shape */
+    -fx-background-radius: 15;
+    -fx-effect: innerShadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.search-bar {
+    -fx-background-color: -fx-purple-faded; /* Ungu pudar */
+    -fx-background-radius: 15;
+    -fx-prompt-text-fill: #685BAB;
+    -fx-text-fill: #333;
+    -fx-padding: 0 20 0 20;
+    -fx-font-size: 14px;
+}
+
+.search-bar:focused {
+    -fx-background-color: white;
+    -fx-border-color: -fx-purple-mid;
+    -fx-border-radius: 15;
+}
+
+/* --- MAP AREA (Kotak Besar) --- */
+.map-card {
+    -fx-background-color: -fx-purple-dark; /* Warna utama sesuai gambar */
+    -fx-background-radius: 30;
+    -fx-alignment: CENTER;
+}
+
+/* --- RIGHT PANEL (Lokasi) --- */
+.lokasi-header-card {
+    -fx-background-color: -fx-purple-light;
+    -fx-background-radius: 25;
+}
+
+/* ScrollPane Transparan */
+.transparent-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.transparent-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Item List Lokasi */
+.lokasi-item {
+    -fx-background-color: -fx-purple-light; /* Warna list item */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+/* Animasi Hover List Item */
+.lokasi-item:hover {
+    -fx-background-color: -fx-purple-mid;
+    -fx-scale-x: 1.02; /* Sedikit membesar saat hover */
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.4), 10, 0, 0, 5);
+}
+
+.lokasi-item:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}

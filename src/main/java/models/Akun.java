@@ -1,119 +1,120 @@
 package models;
 
-import javafx.beans.property.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import java.time.LocalDateTime;
-// Nanti tambahkan library hashing, contoh: import org.mindrot.jbcrypt.BCrypt;
+import util.HashingUtils; // Pastikan import ini ada
 
-public abstract class Akun {
-    protected IntegerProperty idAkun;
-    protected StringProperty namaLengkap;
-    protected StringProperty alamat;
-    protected StringProperty noTelepon;
-    protected StringProperty email;
-    protected StringProperty username;
-    protected StringProperty hashedPassword; // jadi pwnya diubah ke HASH euy
+public class Akun {
+    private int idAkun;
+    private final StringProperty namaLengkap = new SimpleStringProperty();
+    private final StringProperty alamat = new SimpleStringProperty();
+    private final StringProperty noTelepon = new SimpleStringProperty();
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty username = new SimpleStringProperty();
 
-    // Atribut metadata istilah katanya "datanya dari data" wkwk
-    protected BooleanProperty isActive;
-    protected ObjectProperty<LocalDateTime> createdAt;
-    protected ObjectProperty<LocalDateTime> updatedAt;
+    private String password; // Ini menyimpan HASH password
+    private boolean isActive;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    //Konstruktor 1
-    public Akun(String namaLengkap, String alamat, String noTelepon, String email, String username, String plainPassword) {
-        this.idAkun = new SimpleIntegerProperty(0);
-        this.namaLengkap = new SimpleStringProperty(namaLengkap);
-        this.alamat = new SimpleStringProperty(alamat);
-        this.noTelepon = new SimpleStringProperty(noTelepon);
-        this.email = new SimpleStringProperty(email);
-        this.username = new SimpleStringProperty(username);
-        this.hashedPassword = new SimpleStringProperty(); // Akan diisi oleh method
-        // Set metadata
-        this.isActive = new SimpleBooleanProperty(true); // Akun baru langsung aktif
-        this.createdAt = new SimpleObjectProperty<>(LocalDateTime.now());
-        this.updatedAt = new SimpleObjectProperty<>(LocalDateTime.now());
-        // Panggil method untuk hash password
-        this.setAndHashPassword(plainPassword);
+    // --- 1. Konstruktor Kosong ---
+    public Akun() {
+        this.namaLengkap.set("");
+        this.alamat.set("");
+        this.noTelepon.set("");
+        this.email.set("");
+        this.username.set("");
+        this.password = "";
     }
 
-    //konstruktor 2
+    // --- 2. Konstruktor untuk Register Baru ---
+    public Akun(String namaLengkap, String alamat, String noTelepon, String email, String username, String password) {
+        this.namaLengkap.set(namaLengkap);
+        this.alamat.set(alamat);
+        this.noTelepon.set(noTelepon);
+        this.email.set(email);
+        this.username.set(username);
+        this.password = password;
+
+        // Default value
+        this.isActive = true;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    // --- 3. Konstruktor Database ---
     public Akun(int idAkun, String namaLengkap, String alamat, String noTelepon, String email, String username,
-                String dbHashedPassword, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.idAkun = new SimpleIntegerProperty(idAkun);
-        this.namaLengkap = new SimpleStringProperty(namaLengkap);
-        this.alamat = new SimpleStringProperty(alamat);
-        this.noTelepon = new SimpleStringProperty(noTelepon);
-        this.email = new SimpleStringProperty(email);
-        this.username = new SimpleStringProperty(username);
-        this.hashedPassword = new SimpleStringProperty(dbHashedPassword);
-        this.isActive = new SimpleBooleanProperty(isActive);
-        this.createdAt = new SimpleObjectProperty<>(createdAt);
-        this.updatedAt = new SimpleObjectProperty<>(updatedAt);
+                String password, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.idAkun = idAkun;
+        this.namaLengkap.set(namaLengkap);
+        this.alamat.set(alamat);
+        this.noTelepon.set(noTelepon);
+        this.email.set(email);
+        this.username.set(username);
+        this.password = password;
+        this.isActive = isActive;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    // Abstract method
-    public abstract String getRole();
-
-    public void setAndHashPassword(String plainPassword) {
-        String placeholderHash = "HASHED_" + plainPassword;
-        this.hashedPassword.set(placeholderHash);
-    }
-
-
-    //Ngecek paswordnya sama yang udah di hash
+    // ==========================================
+    //  METHOD BARU: CHECK PASSWORD
+    // ==========================================
     public boolean checkPassword(String plainPassword) {
-        // Contoh implementasi pengecekan BCrypt:
-        String placeholderHash = "HASHED_" + plainPassword;
-        return this.hashedPassword.get().equals(placeholderHash);
+        if (plainPassword == null || this.password == null) {
+            return false;
+        }
+        // Menggunakan HashingUtils untuk mencocokkan password inputan dengan Hash di DB
+        return HashingUtils.checkPassword(plainPassword, this.password);
     }
 
-    //              JavaFX Getters, Setters, dan Property Methods
+    // ==========================================
+    //  GETTER & SETTER
+    // ==========================================
 
-    // --- ID Akun
-    public int getIdAkun() { return idAkun.get(); }
-    public void setIdAkun(int idAkun) { this.idAkun.set(idAkun); }
-    public IntegerProperty idAkunProperty() { return idAkun; }
-
-    // --- Nama Lengkap
+    // Nama Lengkap
     public String getNamaLengkap() { return namaLengkap.get(); }
-    public void setNamaLengkap(String namaLengkap) { this.namaLengkap.set(namaLengkap); }
+    public void setNamaLengkap(String nama) { this.namaLengkap.set(nama); }
     public StringProperty namaLengkapProperty() { return namaLengkap; }
 
-    // --- Alamat
+    // Alamat
     public String getAlamat() { return alamat.get(); }
     public void setAlamat(String alamat) { this.alamat.set(alamat); }
     public StringProperty alamatProperty() { return alamat; }
 
-    // --- No Telepon
+    // No Telepon
     public String getNoTelepon() { return noTelepon.get(); }
     public void setNoTelepon(String noTelepon) { this.noTelepon.set(noTelepon); }
     public StringProperty noTeleponProperty() { return noTelepon; }
 
-    // --- Email
+    // Email
     public String getEmail() { return email.get(); }
     public void setEmail(String email) { this.email.set(email); }
     public StringProperty emailProperty() { return email; }
 
-    // --- Username
+    // Username
     public String getUsername() { return username.get(); }
     public void setUsername(String username) { this.username.set(username); }
     public StringProperty usernameProperty() { return username; }
 
-    // --- Hashed Password
-    public String getHashedPassword() { return hashedPassword.get(); }
-    public StringProperty hashedPasswordProperty() { return hashedPassword; }
+    // Password & Hashed Password
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    // --- Is Active
-    public boolean getIsActive() { return isActive.get(); }
-    public void setIsActive(boolean isActive) { this.isActive.set(isActive); }
-    public BooleanProperty isActiveProperty() { return isActive; }
+    // Alias untuk DAO (biar jelas kalau ini Hash)
+    public String getHashedPassword() { return password; }
+    public void setHashedPassword(String password) { this.password = password; }
 
-    // --- Created At
-    public LocalDateTime getCreatedAt() { return createdAt.get(); }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt.set(createdAt); }
-    public ObjectProperty<LocalDateTime> createdAtProperty() { return createdAt; }
+    // ID Akun
+    public int getIdAkun() { return idAkun; }
+    public void setIdAkun(int idAkun) { this.idAkun = idAkun; }
 
-    // --- Updated At
-    public LocalDateTime getUpdatedAt() { return updatedAt.get(); }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt.set(updatedAt); }
-    public ObjectProperty<LocalDateTime> updatedAtProperty() { return updatedAt; }
+    // Is Active
+    public boolean getIsActive() { return isActive; }
+    public void setIsActive(boolean isActive) { this.isActive = isActive; }
+    public boolean isIsActive() { return isActive; } // Alias untuk JavaFX property wrapper kadang butuh is...
+
+    // Role
+    public String getRole() { return "User"; }
 }

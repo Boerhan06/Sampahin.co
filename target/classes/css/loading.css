@@ -1,0 +1,67 @@
+/* --- PALET WARNA --- */
+* {
+    -fx-bg-color: #F9FAF4;      /* Background Utama */
+    -fx-purple-dark: #685BAB;   /* Ungu Gelap (Box Header & Icon) */
+    -fx-purple-mid: #7B70B4;    /* Ungu Medium (Teks Status) */
+    -fx-purple-light: #9C90D9;  /* Ungu Terang (Box Status) */
+    -fx-white: #FFFFFF;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.root-pane {
+    -fx-background-color: -fx-bg-color;
+}
+
+/* --- KARTU UTAMA (Card) --- */
+.card-container {
+    -fx-background-color: -fx-white;
+    -fx-background-radius: 50; /* Radius lebih besar untuk layar besar */
+    /* Efek bayangan lembut (Drop Shadow) */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 30, 0, 0, 10);
+    -fx-padding: 60;
+    -fx-alignment: TOP_CENTER;
+}
+
+/* --- HEADER BOX "SCAN" --- */
+.scan-badge {
+    -fx-background-color: -fx-purple-dark; /* #685BAB Solid */
+    -fx-background-radius: 20;
+    
+    /* Typography */
+    -fx-text-fill: -fx-white;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px; /* Font diperbesar */
+    -fx-alignment: CENTER;
+    
+    /* Dimensi Box */
+    -fx-padding: 15 80 15 80;
+    -fx-min-width: 280px;
+    
+    /* Shadow kecil pada tombol */
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.4), 8, 0, 0, 3);
+}
+
+/* --- ICON UTAMA --- */
+.icon-scan {
+    -fx-text-fill: -fx-purple-dark;
+    -fx-font-size: 180px; /* Icon diperbesar */
+    -fx-alignment: CENTER;
+    -fx-padding: 40 0 40 0; /* Jarak atas bawah */
+}
+
+/* --- STATUS BOX "Menunggu Koneksi" --- */
+.status-box {
+    /* Warna #9C90D9 dengan transparansi 30% */
+    -fx-background-color: rgba(156, 144, 217, 0.3); 
+    -fx-background-radius: 50; /* Kapsul bulat */
+    
+    /* Typography */
+    -fx-text-fill: -fx-purple-mid; /* #7B70B4 */
+    -fx-font-weight: bold;
+    -fx-font-size: 22px; /* Font diperbesar */
+    -fx-alignment: CENTER;
+    
+    /* Dimensi Box */
+    -fx-padding: 15 70 15 70;
+    -fx-min-width: 400px;
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" styleClass="root-pane" stylesheets="@../css/maps-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapsController">
+    <children>
+
+        <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="90.0" styleClass="sidebar" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Circle fill="#ffffff" radius="20.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </Circle>
+                <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="🏠" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn-active" text="🗺️" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="👤" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="⚙️" />
+                    </children>
+                </VBox>
+            </children>
+            <effect>
+                <DropShadow color="#00000020" offsetX="5.0" offsetY="5.0" radius="15.0" />
+            </effect>
+        </VBox>
+
+        <HBox spacing="30.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+
+                <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="120.0" styleClass="header-pill" text="Maps" textFill="#333333">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+
+                                <TextField prefHeight="50.0" promptText="Cari lokasi..." styleClass="search-bar" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <Pane fx:id="mapContainer" prefHeight="200.0" prefWidth="200.0" styleClass="map-card" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label layoutX="40.0" layoutY="280.0" text="Maps Area" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="48.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow color="#685bab40" height="30.0" radius="14.5" width="30.0" />
+                            </effect>
+                        </Pane>
+                    </children>
+                </VBox>
+
+                <VBox prefWidth="280.0" spacing="20.0">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="120.0" prefWidth="280.0" styleClass="lokasi-header-card">
+                            <children>
+                                <Label text="Lokasi" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow color="#9c90d940" offsetY="5.0" radius="10.0" />
+                            </effect>
+                        </VBox>
+
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="listLokasiContainer" spacing="15.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="280.0" styleClass="lokasi-item" text="Purwakarta Pusat" />
+                                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="280.0" styleClass="lokasi-item" text="Cikopo" />
+                                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="280.0" styleClass="lokasi-item" text="Sukatani" />
+                                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="280.0" styleClass="lokasi-item" text="Jatiluhur" />
+                                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="280.0" styleClass="lokasi-item" text="Wanayasa" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

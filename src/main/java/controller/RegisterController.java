@@ -1,104 +1,126 @@
 package controller;
 
-import dao.AdminDAO;
-import models.Admin;
-import javafx.event.ActionEvent;
+import com.sampahin.Main;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import util.SessionManager;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
+import java.util.ResourceBundle;
 
-public class RegisterController {
-    
-    // HANYA 3 FIELD INI YANG ADA DI FXML 
+public class RegisterController implements Initializable {
+
+    // --- Komponen FXML ---
+    @FXML private VBox formContainer; // Container utama untuk dianimasikan
     @FXML private TextField namaField;
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    
-    @FXML private Label statusLabel;
+    @FXML private TextField emailField;
+    @FXML private TextField telpField;
+    @FXML private TextField alamatField;
+    @FXML private Button btnLanjut;
+    @FXML private Hyperlink linkLogin;
 
-    // PERBAIKAN: Menggunakan AdminDAO
-    private AdminDAO adminDAO;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // 1. Jalankan Animasi Masuk
+        playEntranceAnimations();
 
-    public RegisterController() {
-        this.adminDAO = new AdminDAO();
+        // 2. Isi ulang data jika user kembali dari Tahap 2 (User Experience)
+        loadSavedData();
+
+        // Event handler manual (Backup jika FXML onAction bermasalah)
+        // Tapi utamakan penggunaan onAction di FXML
     }
 
-    @FXML
-    private void handleRegister(ActionEvent event) {
-        // 1. Ambil data dari 3 form saja
-        String nama = namaField.getText();
-        String username = usernameField.getText();
-        String pass = passwordField.getText();
+    // --- METHOD NAVIGASI & AKSI ---
 
-        // 2. Validasi Input
-        if (nama.isEmpty() || username.isEmpty() || pass.isEmpty()) {
-            statusLabel.setText("Isi Nama, Username, dan Password!");
-            statusLabel.setStyle("-fx-text-fill: red;");
+    @FXML
+    private void handleLanjut() {
+        String nama = namaField.getText().trim();
+        String email = emailField.getText().trim();
+        String telp = telpField.getText().trim();
+        String alamat = alamatField.getText().trim();
+
+        // 1. Validasi Kosong
+        if (nama.isEmpty() || email.isEmpty() || telp.isEmpty() || alamat.isEmpty()) {
+            showAlert("Data Belum Lengkap", "Mohon isi semua kolom data diri.");
             return;
         }
 
-        // 3. ISI DATA DUMMY (Karena di FXML simple tidak ada inputnya)
-        // Tapi database WAJIB diisi (NOT NULL)
-        String emailDummy = username + "@admin.sampahin.co"; 
-        String teleponDummy = "0800000000";
-        String alamatDummy = "Kantor Pusat";
-        
-        // PERBAIKAN: Generate ID Admin, bukan ID Kartu
-        String idAdmin = "ADM-" + new Random().nextInt(9999);
-        
-        // 4. Buat Objek ADMIN Baru
-        // (Pastikan urutan ini sesuai dengan Constructor di models/Admin.java)
-        Admin adminBaru = new Admin(
-                nama, 
-                alamatDummy,  
-                teleponDummy, 
-                emailDummy,    
-                username, 
-                pass,      // Password Plain
-                idAdmin    // ID Admin
-        );
-
-        // 5. Simpan ke Database via AdminDAO
-        // Ingat: adminDAO.save butuh objek admin DAN password plain
-        boolean isSuccess = adminDAO.save(adminBaru, pass);
-
-        if (isSuccess) {
-            showAlert("Sukses", "Akun ADMIN berhasil dibuat! Silakan Login.");
-            handleBackToLogin(event);
-        } else {
-            statusLabel.setText("Gagal. Username mungkin sudah ada.");
-            statusLabel.setStyle("-fx-text-fill: red;");
+        // 2. Validasi Format Email (Simple Regex)
+        if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            showAlert("Format Salah", "Format email tidak valid (contoh: user@email.com).");
+            return;
         }
+
+        // 3. Validasi No Telepon (Harus Angka & Minimal 10 digit)
+        if (!telp.matches("\\d{10,15}")) {
+            showAlert("Format Salah", "Nomor telepon harus berupa angka (10-15 digit).");
+            return;
+        }
+
+        // 4. Simpan ke SessionManager (Agar dibawa ke Tahap 2)
+        SessionManager.getInstance().setTempRegistrationData(nama, email, telp, alamat);
+        System.out.println("✅ Data Tahap 1 Tersimpan: " + nama);
+
+        // 5. Pindah ke Halaman Berikutnya
+        Main.showRegisterNextView();
     }
 
+    // Method ini WAJIB ADA karena dipanggil oleh onAction="#handleBackToLogin" di FXML
     @FXML
-    private void handleBackToLogin(ActionEvent event) {
-        try {
-            URL fxmlUrl = getClass().getResource("/view/LoginView.fxml");
-            if (fxmlUrl == null) return;
+    private void handleBackToLogin() {
+        // Bersihkan data sampah jika batal daftar
+        SessionManager.getInstance().clearRegistration();
+        Main.showLoginView();
+    }
 
-            Parent root = FXMLLoader.load(fxmlUrl);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            stage.setTitle("Login - Sampahin.co");
-            stage.setScene(new Scene(root));
-            stage.show();
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+    // --- HELPER METHODS ---
+
+    private void playEntranceAnimations() {
+        if (formContainer != null) {
+            // Set posisi awal (Agak di bawah & transparan)
+            formContainer.setOpacity(0);
+            formContainer.setTranslateY(50);
+
+            // Animasi Fade In (Muncul perlahan)
+            FadeTransition fade = new FadeTransition(Duration.millis(800), formContainer);
+            fade.setToValue(1);
+
+            // Animasi Slide Up (Naik ke atas)
+            TranslateTransition slide = new TranslateTransition(Duration.millis(800), formContainer);
+            slide.setToY(0);
+
+            // Mainkan bersamaan
+            fade.play();
+            slide.play();
         }
     }
-    
+
+    private void loadSavedData() {
+        // Mengambil data dari SessionManager (jika ada)
+        SessionManager session = SessionManager.getInstance();
+
+        if (session.getTempNama() != null) {
+            namaField.setText(session.getTempNama());
+        }
+        if (session.getTempEmail() != null) {
+            emailField.setText(session.getTempEmail());
+        }
+        if (session.getTempTelepon() != null) {
+            telpField.setText(session.getTempTelepon());
+        }
+        if (session.getTempAlamat() != null) {
+            alamatField.setText(session.getTempAlamat());
+        }
+    }
+
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING); // Gunakan tipe Warning agar kuning (tidak menakutkan)
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);

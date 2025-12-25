@@ -1,0 +1,138 @@
+2/* --- PALET WARNA --- */
+* {
+    -fx-bg-color: #F9FAF4;
+    -fx-purple-dark: #685BAB;   /* Ungu Gelap (Sidebar Kiri & Card Utama) */
+    -fx-purple-mid: #7B70B4;    /* Ungu Sedang (Sidebar Kanan & Card) */
+    -fx-purple-light: #9C90D9;  /* Ungu Terang (List Item) */
+    -fx-white: #FFFFFF;
+    -fx-text-dark: #333333;
+}
+
+.root-pane {
+    -fx-background-color: -fx-bg-color;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- SIDEBAR KIRI --- */
+.sidebar-left {
+    -fx-background-color: -fx-purple-dark;
+    -fx-background-radius: 0 35 35 0;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B8B0E0;
+    -fx-font-size: 22px;
+    -fx-cursor: hand;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: white;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: -fx-white;
+    -fx-text-fill: -fx-purple-dark;
+    -fx-font-size: 22px;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* --- TEXT LABELS --- */
+.label-header {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-dark;
+}
+
+.label-small {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777777;
+    -fx-font-weight: bold;
+}
+
+.label-bold {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-dark;
+}
+
+/* --- CARD COMPONENTS (TENGAH) --- */
+.card-dark-purple {
+    -fx-background-color: -fx-purple-dark; /* #685BAB */
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 10, 0, 0, 5);
+}
+
+.card-medium-purple {
+    -fx-background-color: -fx-purple-mid; /* #7B70B4 */
+    -fx-background-radius: 20;
+}
+
+.card-light-purple {
+    -fx-background-color: -fx-purple-light; /* #9C90D9 */
+    -fx-background-radius: 20;
+}
+
+.card-white-shadow {
+    -fx-background-color: -fx-white;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.btn-white-pill {
+    -fx-background-color: -fx-white;
+    -fx-background-radius: 30; /* Pill shape */
+    -fx-text-fill: -fx-text-dark;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.btn-white-pill:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.icon-box-purple {
+    -fx-background-color: -fx-purple-dark;
+    -fx-background-radius: 12;
+}
+
+/* --- SIDEBAR KANAN --- */
+.sidebar-right {
+    -fx-background-color: -fx-purple-mid; /* #7B70B4 - Sesuai gambar kanan */
+    -fx-background-radius: 35 0 0 35; /* Rounded kiri */
+}
+
+.card-light-purple-transparent {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 15;
+}
+
+/* List Item di Kanan */
+.trash-item {
+    -fx-background-color: -fx-purple-light; /* #9C90D9 */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 20;
+}
+
+.trash-item:hover {
+    -fx-background-color: derive(-fx-purple-light, 10%);
+    -fx-translate-x: -5; /* Geser ke kiri sedikit */
+}
+
+.transparent-scroll, .transparent-scroll .viewport {
+    -fx-background-color: transparent;
+}

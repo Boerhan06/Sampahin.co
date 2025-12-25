@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" styleClass="root-pane" stylesheets="@../css/registernext-style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterNextController">
+    <children>
+
+        <SVGPath content="M0,0 L300,0 Q100,384 0,768 Z" fill="#685BAB" opacity="0.08" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Circle fill="#9C90D9" layoutX="-50" layoutY="100" opacity="0.05" radius="150" />
+        <Circle fill="#685BAB" layoutX="950" layoutY="650" opacity="0.05" radius="200" />
+
+        <VBox fx:id="cardContainer" alignment="TOP_CENTER" layoutX="287.0" layoutY="134.0" maxWidth="500.0" prefHeight="550.0" prefWidth="450.0" spacing="25.0" styleClass="card-container" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="287.0" AnchorPane.topAnchor="134.0">
+            <padding>
+                <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+            </padding>
+
+            <children>
+                <VBox alignment="CENTER" spacing="8">
+                    <children>
+                        <Label styleClass="title-main" text="Setup Akun (2/2)">
+                            <font>
+                                <Font name="System Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        <Label styleClass="subtitle-text" text="Buat username, password &amp; PIN" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="Username" />
+                        <TextField fx:id="usernameField" promptText="Buat username unik" styleClass="modern-input" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="Password" />
+                        <PasswordField fx:id="passwordField" promptText="Minimal 8 karakter" styleClass="modern-input" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="PIN Keamanan (Admin)" />
+                        <PasswordField fx:id="adminPinField" promptText="Masukkan Kode Rahasia" styleClass="modern-input" />
+                    </children>
+                </VBox>
+
+                <VBox prefHeight="10.0" />
+
+                <Button fx:id="btnBuatAkun" maxWidth="Infinity" mnemonicParsing="false" prefHeight="55.0" styleClass="btn-create" text="Selesaikan Pendaftaran">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <effect>
+                        <DropShadow color="#9C90D940" offsetY="4.0" radius="12.0" />
+                    </effect>
+                </Button>
+
+                <Hyperlink fx:id="linkKembali" styleClass="link-back" text="← Kembali ke Tahap 1" />
+            </children>
+
+            <effect>
+                <DropShadow color="#00000015" height="60.0" offsetY="10.0" radius="30.0" width="60.0" />
+            </effect>
+        </VBox>
+
+    </children>
+</AnchorPane>
