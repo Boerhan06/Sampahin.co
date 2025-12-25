@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" styleClass="root-pane" stylesheets="@../css/tukarsampah-form-style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TukarSampahFormController">
+    <children>
+
+        <VBox alignment="TOP_CENTER" prefHeight="768.0" prefWidth="90.0" styleClass="sidebar" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Circle fill="#ffffff" radius="20.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </Circle>
+                <VBox alignment="CENTER" spacing="25.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="🏠" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="🗺️" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn" text="👤" />
+                        <Button mnemonicParsing="false" styleClass="sidebar-btn-active" text="♻️" />
+                    </children>
+                </VBox>
+            </children>
+            <effect>
+                <DropShadow color="#00000015" offsetX="5.0" offsetY="5.0" radius="15.0" />
+            </effect>
+        </VBox>
+
+        <AnchorPane layoutX="140.0" layoutY="40.0" styleClass="main-card" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+
+                <Label alignment="CENTER" layoutX="40.0" layoutY="30.0" prefHeight="45.0" prefWidth="200.0" styleClass="header-pill" text="Tukar Sampah" textFill="#333333">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <Pane layoutX="800.0" layoutY="30.0" prefHeight="60.0" prefWidth="60.0" styleClass="icon-box-top" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0" />
+
+                <VBox fx:id="formContainer" layoutX="40.0" layoutY="100.0" spacing="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="110.0">
+                    <children>
+
+                        <VBox styleClass="input-group">
+                            <children>
+                                <Label styleClass="input-label" text="Nama pendonor :" />
+                                <TextField promptText="Masukkan nama..." styleClass="input-field" />
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="input-group">
+                            <children>
+                                <Label styleClass="input-label" text="Jenis sampah :" />
+                                <TextField promptText="Pilih jenis sampah..." styleClass="input-field" />
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="input-group">
+                            <children>
+                                <Label styleClass="input-label" text="Berat sampah :" />
+                                <TextField promptText="0 kg" styleClass="input-field" />
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="input-group">
+                            <children>
+                                <Label styleClass="input-label" text="Total poin :" />
+                                <TextField editable="false" promptText="0 Poin" styleClass="input-field" text="5000" />
+                            </children>
+                        </VBox>
+
+                    </children>
+                </VBox>
+
+                <HBox fx:id="buttonContainer" spacing="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" styleClass="btn-done" text="Done" />
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" styleClass="btn-cancel" text="Cancel" />
+                    </children>
+                </HBox>
+
+            </children>
+            <effect>
+                <DropShadow color="#00000010" height="20.0" radius="9.5" width="20.0" />
+            </effect>
+        </AnchorPane>
+
+    </children>
+</AnchorPane>

@@ -1,0 +1,97 @@
+/* --- PALET WARNA --- */
+* {
+    -fx-bg-color: #F9FAF4;
+    -fx-purple-dark: #685BAB;   /* Sidebar / Icon Dark */
+    -fx-purple-mid: #9C90D9;    /* Notif Card Background */
+    -fx-purple-light: #B8B0E0;  /* Icon Light */
+    -fx-purple-faded: #D6CCEB;  /* Header Title */
+    -fx-white: #FFFFFF;
+    -fx-text-dark: #333333;
+}
+
+.root-pane {
+    -fx-background-color: -fx-bg-color;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    -fx-background-color: -fx-purple-dark;
+    -fx-background-radius: 0 35 35 0;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-purple-light;
+    -fx-font-size: 22px;
+    -fx-cursor: hand;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: white;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: -fx-white;
+    -fx-text-fill: -fx-purple-dark;
+    -fx-font-size: 22px;
+    -fx-background-radius: 15;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* --- HEADER --- */
+.header-pill {
+    -fx-background-color: -fx-purple-faded;
+    -fx-background-radius: 15;
+    -fx-text-fill: -fx-text-dark;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+/* --- NOTIFICATION CARD --- */
+.notif-card {
+    -fx-background-color: -fx-purple-mid; /* #9C90D9 */
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s;
+}
+
+.notif-card:hover {
+    -fx-background-color: derive(-fx-purple-mid, 5%);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 8, 0, 0, 3);
+}
+
+.notif-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.notif-desc {
+    -fx-font-size: 14px;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+}
+
+/* --- ICONS DALAM KARTU --- */
+.icon-box {
+    -fx-background-color: -fx-purple-light; /* #B8B0E0 */
+    -fx-background-radius: 15;
+}
+
+.icon-box-dark {
+    -fx-background-color: -fx-purple-dark; /* #685BAB */
+    -fx-background-radius: 15;
+}
+
+/* ScrollPane Transparan */
+.transparent-scroll, .transparent-scroll .viewport {
+    -fx-background-color: transparent;
+}
