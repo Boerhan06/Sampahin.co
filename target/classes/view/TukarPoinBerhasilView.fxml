@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane styleClass="root-pane" stylesheets="@tukarpoinberhasil.css" prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TukarPoinBerhasilController">
+
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        
+        <VBox styleClass="sidebar" prefWidth="320.0" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="50.0" bottom="50.0" left="30.0" right="30.0"/>
+            </padding>
+            
+            <VBox styleClass="sidebar-title-box" minHeight="120.0" prefWidth="240.0" alignment="CENTER">
+                <Label text="Tukar Poin" styleClass="sidebar-title-text" />
+            </VBox>
+
+            <VBox VBox.vgrow="ALWAYS" />
+
+            <Label fx:id="lblTotalPoin" text="Total Poin" styleClass="sidebar-footer-text" alignment="CENTER_LEFT" maxWidth="Infinity"/>
+        </VBox>
+
+        <AnchorPane HBox.hgrow="ALWAYS">
+            
+            <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label fx:id="lblSuccess" text="Penukaran&#10;Berhasil!!" textAlignment="CENTER" styleClass="success-text" />
+            </StackPane>
+
+            <Button fx:id="btnKembali" text="Kembali" styleClass="btn-back" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="60.0" />
+
+        </AnchorPane>
+
+    </HBox>
+
+</AnchorPane>
