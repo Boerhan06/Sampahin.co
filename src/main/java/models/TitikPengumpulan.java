@@ -1,44 +1,59 @@
 package models;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class TitikPengumpulan {
 
     private IntegerProperty idLokasi;
     private StringProperty namaLokasi;
-    private StringProperty alamatLokasi;
+    private StringProperty alamat; // UBAH: dari alamatLokasi jadi alamat (sesuai DB)
+    private DoubleProperty latitude;
+    private DoubleProperty longitude;
 
-    // Konnstructor 1
-    public TitikPengumpulan(String namaLokasi, String alamatLokasi) {
-        this.idLokasi = new SimpleIntegerProperty(0); // Penanda baru
+    // Constructor 1 (Untuk Data Baru - ID otomatis 0)
+    public TitikPengumpulan(String namaLokasi, String alamat, double lat, double lng) {
+        this.idLokasi = new SimpleIntegerProperty(0);
         this.namaLokasi = new SimpleStringProperty(namaLokasi);
-        this.alamatLokasi = new SimpleStringProperty(alamatLokasi);
+        this.alamat = new SimpleStringProperty(alamat); // Update
+        this.latitude = new SimpleDoubleProperty(lat);
+        this.longitude = new SimpleDoubleProperty(lng);
     }
 
-    // Konnstructor 2
-    public TitikPengumpulan(int idLokasi, String namaLokasi, String alamatLokasi) {
+    // Constructor 2 (Untuk Data dari Database)
+    public TitikPengumpulan(int idLokasi, String namaLokasi, String alamat, double lat, double lng) {
         this.idLokasi = new SimpleIntegerProperty(idLokasi);
         this.namaLokasi = new SimpleStringProperty(namaLokasi);
-        this.alamatLokasi = new SimpleStringProperty(alamatLokasi);
+        this.alamat = new SimpleStringProperty(alamat); // Update
+        this.latitude = new SimpleDoubleProperty(lat);
+        this.longitude = new SimpleDoubleProperty(lng);
     }
 
-    // --- Getters, Setters, dan Properties ---
+    // --- ID LOKASI ---
     public int getIdLokasi() { return idLokasi.get(); }
     public void setIdLokasi(int idLokasi) { this.idLokasi.set(idLokasi); }
     public IntegerProperty idLokasiProperty() { return idLokasi; }
 
+    // --- NAMA LOKASI ---
     public String getNamaLokasi() { return namaLokasi.get(); }
     public void setNamaLokasi(String namaLokasi) { this.namaLokasi.set(namaLokasi); }
     public StringProperty namaLokasiProperty() { return namaLokasi; }
 
-    public String getAlamatLokasi() { return alamatLokasi.get(); }
-    public void setAlamatLokasi(String alamatLokasi) { this.alamatLokasi.set(alamatLokasi); }
-    public StringProperty alamatLokasiProperty() { return alamatLokasi; }
+    // --- ALAMAT (Disesuaikan) ---
+    // Sekarang methodnya jadi getAlamat() bukan getAlamatLokasi()
+    public String getAlamat() { return alamat.get(); }
+    public void setAlamat(String alamat) { this.alamat.set(alamat); }
+    public StringProperty alamatProperty() { return alamat; }
 
-    // Berguna untuk ditampilkan di ComboBox
+    // --- LATITUDE ---
+    public double getLatitude() { return latitude.get(); }
+    public void setLatitude(double latitude) { this.latitude.set(latitude); }
+    public DoubleProperty latitudeProperty() { return latitude; }
+
+    // --- LONGITUDE ---
+    public double getLongitude() { return longitude.get(); }
+    public void setLongitude(double longitude) { this.longitude.set(longitude); }
+    public DoubleProperty longitudeProperty() { return longitude; }
+
     @Override
     public String toString() {
         return getNamaLokasi();

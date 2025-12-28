@@ -1,5 +1,3 @@
-/* * PERBAIKAN: package adalah 'dao'
- */
 package dao;
 
 import models.TitikPengumpulan;
@@ -23,11 +21,14 @@ public class TitikPengumpulanDAO {
 
     // --- CREATE (C) ---
     public boolean save(TitikPengumpulan lokasi) {
-        String sql = "INSERT INTO titik_pengumpulan (nama_lokasi, alamat_lokasi) VALUES (?, ?)";
+        // PERBAIKAN: Sesuaikan nama tabel dan kolom
+        String sql = "INSERT INTO titikkumpul (NamaLokasi, Alamat, Latitude, Longitude) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, lokasi.getNamaLokasi());
-            stmt.setString(2, lokasi.getAlamatLokasi());
+            stmt.setString(2, lokasi.getAlamat());
+            stmt.setDouble(3, lokasi.getLatitude());
+            stmt.setDouble(4, lokasi.getLongitude());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -39,7 +40,8 @@ public class TitikPengumpulanDAO {
 
     // --- READ (R) - Single by ID ---
     public TitikPengumpulan getById(int id) {
-        String sql = "SELECT * FROM titik_pengumpulan WHERE id_lokasi = ?";
+        // PERBAIKAN: WHERE idLokasi
+        String sql = "SELECT * FROM titikkumpul WHERE idLokasi = ?";
         TitikPengumpulan lokasi = null;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -47,10 +49,13 @@ public class TitikPengumpulanDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                // PERBAIKAN: Ambil data sesuai nama kolom di DB
                 lokasi = new TitikPengumpulan(
-                        rs.getInt("id_lokasi"),
-                        rs.getString("nama_lokasi"),
-                        rs.getString("alamat_lokasi")
+                        rs.getInt("idLokasi"),     // Sesuai DB
+                        rs.getString("NamaLokasi"), // Sesuai DB
+                        rs.getString("Alamat"),     // Sesuai DB
+                        rs.getDouble("Latitude"),   // Kolom Baru
+                        rs.getDouble("Longitude")   // Kolom Baru
                 );
             }
         } catch (SQLException e) {
@@ -61,16 +66,19 @@ public class TitikPengumpulanDAO {
 
     // --- READ (R) - All ---
     public List<TitikPengumpulan> getAll() {
-        String sql = "SELECT * FROM titik_pengumpulan";
+        // PERBAIKAN: Nama tabel
+        String sql = "SELECT * FROM titikkumpul";
         List<TitikPengumpulan> listLokasi = new ArrayList<>();
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 TitikPengumpulan lokasi = new TitikPengumpulan(
-                        rs.getInt("id_lokasi"),
-                        rs.getString("nama_lokasi"),
-                        rs.getString("alamat_lokasi")
+                        rs.getInt("idLokasi"),
+                        rs.getString("NamaLokasi"),
+                        rs.getString("Alamat"),
+                        rs.getDouble("Latitude"),
+                        rs.getDouble("Longitude")
                 );
                 listLokasi.add(lokasi);
             }
@@ -82,12 +90,15 @@ public class TitikPengumpulanDAO {
 
     // --- UPDATE (U) ---
     public boolean update(TitikPengumpulan lokasi) {
-        String sql = "UPDATE titik_pengumpulan SET nama_lokasi = ?, alamat_lokasi = ? WHERE id_lokasi = ?";
+        // PERBAIKAN: Sesuaikan nama kolom di query UPDATE
+        String sql = "UPDATE titikkumpul SET NamaLokasi = ?, Alamat = ?, Latitude = ?, Longitude = ? WHERE idLokasi = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, lokasi.getNamaLokasi());
-            stmt.setString(2, lokasi.getAlamatLokasi());
-            stmt.setInt(3, lokasi.getIdLokasi()); 
+            stmt.setString(2, lokasi.getAlamat());
+            stmt.setDouble(3, lokasi.getLatitude());
+            stmt.setDouble(4, lokasi.getLongitude());
+            stmt.setInt(5, lokasi.getIdLokasi());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -99,7 +110,8 @@ public class TitikPengumpulanDAO {
 
     // --- DELETE (D) ---
     public boolean delete(int id) {
-        String sql = "DELETE FROM titik_pengumpulan WHERE id_lokasi = ?";
+        // PERBAIKAN: WHERE idLokasi
+        String sql = "DELETE FROM titikkumpul WHERE idLokasi = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);

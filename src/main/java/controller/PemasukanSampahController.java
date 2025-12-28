@@ -1,6 +1,5 @@
 package controller;
 
-import com.sampahin.Main;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,33 +9,33 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.scene.Node; // Import Node untuk mengambil Stage
+import javafx.scene.input.MouseEvent; // Import MouseEvent
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class PemasukanSampahController {
 
-    // FXML Components
-    @FXML private VBox navHome;
-    @FXML private VBox navUsers;
-    @FXML private VBox navWaste;
-    @FXML private VBox navWithdraw;
-    @FXML private VBox navLogout;
+    // --- FXML Components (Sesuai fx:id di FXML) ---
 
+    // Label Header & Stats
     @FXML private Label lblCurrentDate;
     @FXML private Label lblTotalTransaksi;
     @FXML private Label lblTotalPoin;
     @FXML private Label lblTotalBerat;
 
+    // Controls
     @FXML private TextField searchField;
+    @FXML private Label lblPaginationInfo;
+
+    // Table Components
     @FXML private TableView<PemasukanData> tableData;
     @FXML private TableColumn<PemasukanData, String> colUsername;
     @FXML private TableColumn<PemasukanData, String> colTanggal;
@@ -45,9 +44,7 @@ public class PemasukanSampahController {
     @FXML private TableColumn<PemasukanData, Integer> colPoin;
     @FXML private TableColumn<PemasukanData, String> colLokasi;
 
-    @FXML private Label lblPaginationInfo;
-
-    // Data
+    // --- Data & Formatters ---
     private ObservableList<PemasukanData> allData = FXCollections.observableArrayList();
     private ObservableList<PemasukanData> filteredData = FXCollections.observableArrayList();
 
@@ -62,8 +59,9 @@ public class PemasukanSampahController {
         updateCurrentDate();
     }
 
+    // --- Setup Table & Styling ---
     private void setupTable() {
-        // Setup columns
+        // Setup columns mapping
         colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         colJenisSampah.setCellValueFactory(new PropertyValueFactory<>("jenisSampah"));
@@ -71,7 +69,7 @@ public class PemasukanSampahController {
         colPoin.setCellValueFactory(new PropertyValueFactory<>("poin"));
         colLokasi.setCellValueFactory(new PropertyValueFactory<>("lokasi"));
 
-        // Custom cell factories for styling
+        // 1. Styling Username (Bold, Warna Ungu Utama)
         colUsername.setCellFactory(column -> new TableCell<PemasukanData, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -86,6 +84,7 @@ public class PemasukanSampahController {
             }
         });
 
+        // 2. Styling Tanggal (Abu-abu)
         colTanggal.setCellFactory(column -> new TableCell<PemasukanData, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -100,6 +99,7 @@ public class PemasukanSampahController {
             }
         });
 
+        // 3. Styling Jenis Sampah (Badge Style)
         colJenisSampah.setCellFactory(column -> new TableCell<PemasukanData, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -107,15 +107,22 @@ public class PemasukanSampahController {
                 if (empty || item == null) {
                     setText(null);
                     setStyle("");
+                    setGraphic(null);
                 } else {
-                    setText(item);
-                    setStyle("-fx-background-color: #DBEAFE; -fx-text-fill: #1E40AF; " +
-                            "-fx-background-radius: 6; -fx-padding: 4 8; " +
-                            "-fx-font-weight: bold; -fx-font-size: 11px;");
+                    Label badge = new Label(item);
+                    // Warna badge dinamis berdasarkan jenis sampah (Opsional)
+                    String style = "-fx-background-color: #DBEAFE; -fx-text-fill: #1E40AF;"; // Default Blue
+                    if (item.equalsIgnoreCase("Plastik")) style = "-fx-background-color: #FEF3C7; -fx-text-fill: #D97706;"; // Yellow
+                    else if (item.equalsIgnoreCase("Organik")) style = "-fx-background-color: #D1FAE5; -fx-text-fill: #059669;"; // Green
+
+                    badge.setStyle(style + "-fx-background-radius: 6; -fx-padding: 4 8; -fx-font-weight: bold; -fx-font-size: 11px;");
+                    setGraphic(badge);
+                    setText(null);
                 }
             }
         });
 
+        // 4. Styling Berat
         colBerat.setCellFactory(column -> new TableCell<PemasukanData, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
@@ -130,6 +137,7 @@ public class PemasukanSampahController {
             }
         });
 
+        // 5. Styling Poin
         colPoin.setCellFactory(column -> new TableCell<PemasukanData, Integer>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -138,22 +146,8 @@ public class PemasukanSampahController {
                     setText(null);
                     setStyle("");
                 } else {
-                    setText(currencyFormat.format(item) + " pts");
+                    setText("+" + currencyFormat.format(item));
                     setStyle("-fx-text-fill: #D97706; -fx-font-weight: bold;");
-                }
-            }
-        });
-
-        colLokasi.setCellFactory(column -> new TableCell<PemasukanData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle("-fx-text-fill: #6b7280; -fx-font-size: 12px;");
                 }
             }
         });
@@ -161,21 +155,18 @@ public class PemasukanSampahController {
         tableData.setItems(filteredData);
     }
 
+    // --- Data Loading ---
     private void loadSampleData() {
-        // Sample waste intake data
-        String[] usernames = {"Ahmad_R", "Budi_S", "Citra_D", "Dewi_P", "Eko_W",
-                "Fitri_M", "Gunawan", "Hana_K", "Indra_L", "Joko_S"};
+        String[] usernames = {"Ahmad_R", "Budi_S", "Citra_D", "Dewi_P", "Eko_W", "Fitri_M", "Gunawan", "Hana_K"};
         String[] wasteTypes = {"Plastik", "Kertas", "Logam", "Kaca", "Organik"};
-        String[] locations = {"Jakarta Utara", "Jakarta Selatan", "Jakarta Timur",
-                "Jakarta Barat", "Jakarta Pusat", "Tangerang", "Bekasi",
-                "Depok", "Bogor"};
+        String[] locations = {"Jakarta Utara", "Jakarta Selatan", "Bandung", "Surabaya", "Bekasi"};
 
-        for (int i = 0; i < 50; i++) {
-            String username = usernames[i % usernames.length] + (i > 9 ? i : "");
-            String date = LocalDate.now().minusDays(i).format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        for (int i = 0; i < 30; i++) {
+            String username = usernames[i % usernames.length];
+            String date = LocalDate.now().minusDays(i).format(DateTimeFormatter.ofPattern("dd MMM yyyy", new Locale("id", "ID")));
             String type = wasteTypes[i % wasteTypes.length];
-            double weight = 0.5 + (Math.random() * 10.0); // 0.5 - 10.5 kg
-            int points = (int) (weight * 100); // 100 points per kg
+            double weight = 1.0 + (Math.random() * 9.0);
+            int points = (int) (weight * 500); // 500 poin per kg
             String location = locations[i % locations.length];
 
             allData.add(new PemasukanData(username, date, type, weight, points, location));
@@ -190,19 +181,21 @@ public class PemasukanSampahController {
         int totalPoin = allData.stream().mapToInt(PemasukanData::getPoin).sum();
         double totalBerat = allData.stream().mapToDouble(PemasukanData::getBerat).sum();
 
-        lblTotalTransaksi.setText(currencyFormat.format(totalTransaksi));
+        lblTotalTransaksi.setText(String.valueOf(totalTransaksi));
         lblTotalPoin.setText(currencyFormat.format(totalPoin));
         lblTotalBerat.setText(decimalFormat.format(totalBerat));
     }
 
     private void updateCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("id", "ID"));
         lblCurrentDate.setText(sdf.format(new Date()));
     }
 
     private void updatePaginationInfo() {
         lblPaginationInfo.setText("Menampilkan " + filteredData.size() + " dari " + allData.size() + " transaksi");
     }
+
+    // --- Event Handlers (Sesuai FXML) ---
 
     @FXML
     private void handleSearch() {
@@ -220,61 +213,68 @@ public class PemasukanSampahController {
                 }
             }
         }
-
         updatePaginationInfo();
     }
 
-    // Navigation handlers
+    // Navigasi ke Dashboard
     @FXML
-    private void handleNavHome() {
-        Main.showDashboardView();
+    private void handleDashboard(MouseEvent event) {
+        navigateTo(event, "Dashboard.fxml", "Dashboard");
     }
 
+    // Navigasi ke Daftar Pengguna
     @FXML
-    private void handleNavUsers() {
-        Main.showDaftarPenggunaView();
+    private void handleUsers(MouseEvent event) {
+        navigateTo(event, "DaftarPengguna.fxml", "Daftar Pengguna");
     }
 
+    // Navigasi ke Riwayat Penarikan
     @FXML
-    private void handleNavWithdraw() {
-        Main.showRiwayatPenarikanView();
+    private void handlePenarikan(MouseEvent event) {
+        navigateTo(event, "RiwayatPenarikan.fxml", "Riwayat Penarikan");
     }
 
+    // Handle Logout
     @FXML
-    private void handleLogout() {
+    private void handleLogout(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Konfirmasi Logout");
-        alert.setHeaderText("Apakah Anda yakin ingin keluar?");
-        alert.setContentText("Anda akan kembali ke halaman login.");
+        alert.setHeaderText("Keluar dari Aplikasi");
+        alert.setContentText("Apakah Anda yakin ingin keluar?");
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                navigateTo("login.fxml", "Login");
+                // Ganti 'Login.fxml' dengan file login Anda yang sebenarnya
+                navigateTo(event, "Login.fxml", "Login");
             }
         });
     }
 
-    private void navigateTo(String fxmlFile, String title) {
+    // Helper Method untuk Navigasi
+    private void navigateTo(MouseEvent event, String fxmlFile, String title) {
         try {
+            // Mengambil stage dari event source (tombol yang diklik)
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+
+            // Load FXML baru
             Parent root = FXMLLoader.load(getClass().getResource("/view/" + fxmlFile));
-            Stage stage = (Stage) navHome.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
             stage.setTitle(title);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showError("Navigasi Gagal", "Tidak dapat membuka halaman " + title);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Navigasi");
+            alert.setHeaderText(null);
+            alert.setContentText("Gagal memuat halaman: " + fxmlFile + "\nPastikan file FXML ada di folder /view/");
+            alert.showAndWait();
         }
     }
 
-    private void showError(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    // Inner class for data model
+    // --- Inner Class Data Model ---
     public static class PemasukanData {
         private final StringProperty username;
         private final StringProperty tanggal;
@@ -293,7 +293,6 @@ public class PemasukanSampahController {
             this.lokasi = new SimpleStringProperty(lokasi);
         }
 
-        // Getters and property methods
         public String getUsername() { return username.get(); }
         public StringProperty usernameProperty() { return username; }
 

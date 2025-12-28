@@ -1,60 +1,103 @@
+/* ========================================================== */
+/* 1. DASAR & BACKGROUND (GLOBAL)                             */
+/* ========================================================== */
 .root-pane {
     -fx-background-color: radial-gradient(focus-angle 0deg, focus-distance 0%, center 50% 50%, radius 60%, #FFFFFF 0%, #F8F9FE 100%);
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
 .bg-modern { -fx-background-color: transparent; }
+
+/* Efek Glow di pojok layar */
 .glow-light-top-left {
     -fx-background-color: radial-gradient(center 0% 0%, radius 60%, rgba(104, 91, 171, 0.08), transparent);
-    -fx-pref-width: 600; -fx-pref-height: 600;
 }
 .glow-light-bottom-right {
     -fx-background-color: radial-gradient(center 100% 100%, radius 60%, rgba(104, 91, 171, 0.05), transparent);
-    -fx-pref-width: 600; -fx-pref-height: 600;
 }
 
-.transparent-scroll, .transparent-scroll .viewport { -fx-background-color: transparent; }
-.transparent-scroll .scroll-bar:vertical { -fx-background-color: transparent; -fx-padding: 0; }
-.transparent-scroll .scroll-bar:vertical .thumb { -fx-background-color: #E5E7EB; -fx-background-radius: 4; }
+/* ========================================================== */
+/* 2. SCROLLBAR CUSTOM (TRANSPARAN / MINIMALIS)               */
+/* ========================================================== */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
 
+/* Scrollbar Vertical */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #E5E7EB;
+    -fx-background-radius: 4;
+}
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* ========================================================== */
+/* 3. SIDEBAR KIRI & NAVIGASI                                 */
+/* ========================================================== */
 .sidebar-left {
     -fx-background-color: #685BAB;
     -fx-background-radius: 0 24 24 0;
     -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.2), 15, 0, 4, 0);
 }
 
-.nav-item, .nav-item-active, .nav-item-logout {
-    -fx-alignment: center; -fx-padding: 10;
-    -fx-background-radius: 14; -fx-cursor: hand;
-    -fx-max-width: 50; -fx-min-height: 50;
+.nav-item {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-background-radius: 14;
+    -fx-cursor: hand;
+    -fx-max-width: 50;
+    -fx-min-height: 50;
+    -fx-background-color: transparent;
     -fx-transition: all 0.2s ease-in-out;
 }
-
-.nav-item:hover { -fx-background-color: rgba(255,255,255,0.15); -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
+.nav-item:hover {
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-scale-x: 1.05; -fx-scale-y: 1.05;
+}
 
 .nav-item-active {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-background-radius: 14;
+    -fx-max-width: 50;
+    -fx-min-height: 50;
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
 }
-.nav-icon-active { -fx-fill: #685BAB; -fx-scale-x: 1.3; -fx-scale-y: 1.3; }
-.nav-label-active {
-    -fx-text-fill: #685BAB; -fx-font-size: 9px; -fx-font-weight: bold; -fx-padding: 2 0 0 0;
-}
 
-.nav-item { -fx-background-color: transparent; }
-.nav-icon { -fx-fill: rgba(255,255,255,0.7); -fx-scale-x: 1.3; -fx-scale-y: 1.3; }
-.nav-label {
-    -fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 9px; -fx-font-weight: bold; -fx-padding: 2 0 0 0;
-}
+/* Icon SVG Colors */
+.nav-icon { -fx-fill: rgba(255,255,255,0.7); }
+.nav-icon-active { -fx-fill: #685BAB; }
+.nav-icon-logout { -fx-fill: #FECACA; }
 
+/* Logout Button Specific */
+.nav-item-logout {
+    -fx-alignment: center; -fx-padding: 10; -fx-background-radius: 14; -fx-cursor: hand;
+    -fx-max-width: 50; -fx-min-height: 50;
+}
 .nav-item-logout:hover { -fx-background-color: rgba(239, 68, 68, 0.2); }
-.nav-icon-logout { -fx-fill: #FECACA; -fx-scale-x: 1.3; -fx-scale-y: 1.3; }
-.nav-label-logout { -fx-text-fill: #FECACA; -fx-font-size: 9px; -fx-font-weight: bold; }
 
+
+/* ========================================================== */
+/* 4. DASHBOARD CONTENT (KARTU, STATISTIK, CHART)             */
+/* ========================================================== */
 .date-pill {
-    -fx-background-color: white; -fx-background-radius: 50; -fx-padding: 8 16;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-padding: 8 16;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 8, 0, 0, 2);
-    -fx-border-color: #F3F4F6; -fx-border-radius: 50;
+    -fx-border-color: #F3F4F6;
+    -fx-border-radius: 50;
 }
 
 .card-welcome {
@@ -62,86 +105,308 @@
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 15, 0, 0, 5);
 }
+
 .btn-welcome {
-    -fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-font-weight: bold;
-    -fx-background-radius: 12; -fx-padding: 10 20; -fx-cursor: hand;
-    -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 12;
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 12;
 }
 .btn-welcome:hover { -fx-background-color: white; -fx-text-fill: #685BAB; }
 
-.card-stat, .card-container-map {
-    -fx-background-color: white; -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.04), 15, 0, 0, 5);
-    -fx-border-color: transparent;
+.card-stat {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: #685BAB; /* Border Ungu */
+    -fx-border-width: 2px;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.25), 10, 0, 0, 4);
 }
 
-.card-container-map { -fx-background-insets: 0; -fx-padding: 5; }
-.map-badge {
-    -fx-background-color: rgba(255,255,255,0.9);
-    -fx-background-radius: 8; -fx-padding: 8 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
-}
-.btn-map {
-    -fx-background-color: white; -fx-text-fill: #1F2937;
-    -fx-font-weight: bold; -fx-font-size: 14px;
-    -fx-background-radius: 8; -fx-min-width: 32; -fx-min-height: 32;
-    -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);
-    -fx-border-color: #F3F4F6; -fx-border-radius: 8;
-}
-.btn-map:hover { -fx-background-color: #F9FAFB; -fx-text-fill: #685BAB; }
+.stat-title { -fx-text-fill: #6B7280; -fx-font-size: 13px; -fx-font-weight: bold; }
+.stat-number { -fx-text-fill: #685BAB; -fx-font-size: 28px; -fx-font-weight: 800; }
 
-.stat-title { -fx-text-fill: #9CA3AF; -fx-font-size: 13px; -fx-font-weight: bold; }
-.stat-number { -fx-text-fill: #1F2937; -fx-font-size: 28px; -fx-font-weight: 800; }
 .badge-up {
     -fx-background-color: #ECFDF5; -fx-text-fill: #059669;
-    -fx-font-size: 11px; -fx-font-weight: bold;
-    -fx-background-radius: 20; -fx-padding: 4 8;
+    -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 4 8;
 }
 .badge-warn {
     -fx-background-color: #FFFBEB; -fx-text-fill: #D97706;
-    -fx-font-size: 11px; -fx-font-weight: bold;
-    -fx-background-radius: 20; -fx-padding: 4 8;
+    -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 4 8;
 }
-.btn-action {
-    -fx-background-color: #F9FAFB; -fx-text-fill: #4B5563;
-    -fx-font-size: 12px; -fx-font-weight: bold;
-    -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 12;
-    -fx-border-color: #E5E7EB; -fx-border-radius: 8;
-}
-.btn-action:hover { -fx-background-color: #685BAB; -fx-text-fill: white; }
 
+/* FIX: TOMBOL LIHAT DETAIL (LEBIH CANTIK) */
+.btn-action {
+    -fx-background-color: white;
+    -fx-text-fill: #685BAB;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-radius: 8;
+    -fx-border-color: #685BAB;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 8 12;
+}
+.btn-action:hover {
+    -fx-background-color: #685BAB;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 5, 0, 0, 1);
+}
+
+/* Chart Styles */
 .chart-mini .chart-series-area-fill { -fx-fill: rgba(104, 91, 171, 0.1); }
 .chart-mini .chart-series-area-line { -fx-stroke: #685BAB; -fx-stroke-width: 2px; }
 .chart-mini .chart-plot-background { -fx-background-color: transparent; }
-.chart-mini .chart-vertical-grid-lines { -fx-stroke: transparent; }
-.chart-mini .chart-horizontal-grid-lines { -fx-stroke: transparent; }
 .chart-mini .axis { -fx-opacity: 0; -fx-tick-label-fill: transparent; }
 
-.sidebar-right {
-    -fx-background-color: white; -fx-background-radius: 20 0 0 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.03), 15, 0, -5, 0);
-}
-.search-field {
-    -fx-background-color: #F9FAFB; -fx-background-radius: 10;
-    -fx-text-fill: #374151; -fx-prompt-text-fill: #9CA3AF; -fx-border-color: transparent;
-}
-.search-field:focused { -fx-background-color: white; -fx-border-color: #685BAB; -fx-border-radius: 10; }
-.btn-add {
-    -fx-background-color: #685BAB; -fx-text-fill: white;
-    -fx-background-radius: 10; -fx-min-width: 40; -fx-min-height: 40;
-    -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 8, 0, 0, 3);
-}
-.btn-add:hover { -fx-background-color: #564a96; -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
-.section-title { -fx-text-fill: #374151; -fx-font-size: 16px; -fx-font-weight: bold; }
 
-.chat-card, .chat-card-new { -fx-background-radius: 12; -fx-cursor: hand; -fx-transition: all 0.2s; }
-.chat-card { -fx-background-color: white; -fx-border-color: #F3F4F6; -fx-border-radius: 12; }
-.chat-card-new { -fx-background-color: #F5F3FF; -fx-border-color: transparent; }
-.chat-card:hover, .chat-card-new:hover { -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2); }
-.chat-name { -fx-text-fill: #1F2937; -fx-font-weight: bold; -fx-font-size: 13px; }
-.chat-msg { -fx-text-fill: #6B7280; -fx-font-size: 11px; }
-.badge-new {
-    -fx-background-color: #EF4444; -fx-text-fill: white;
-    -fx-font-size: 8px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 2 6;
+/* ========================================================== */
+/* 5. MAP COMPONENTS (Floating Bar & Buttons)                 */
+/* ========================================================== */
+.card-container-map {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.04), 15, 0, 0, 5);
+    -fx-padding: 5;
 }
-.chat-time { -fx-text-fill: #9CA3AF; -fx-font-size: 10px; }
+
+/* Container Search Bar yang melayang */
+.map-floating-bar {
+    -fx-background-color: rgba(255,255,255,0.95); /* Putih agak transparan */
+    -fx-background-radius: 8;
+    -fx-padding: 5 10; /* Padding kecil biar terlihat ramping/compact */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 4);
+    -fx-border-color: #F3F4F6;
+    -fx-border-radius: 8;
+}
+
+/* Input Field Search */
+.map-search-input {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #E5E7EB;
+    -fx-text-fill: #374151;
+    -fx-font-size: 12px;
+
+    /* KUNCI: Batasi lebar input agar bar tidak kepanjangan */
+    -fx-pref-width: 160px;
+}
+.map-search-input:focused {
+    -fx-border-color: #685BAB;
+}
+
+/* Tombol di sebelah search bar */
+.btn-map-action {
+    -fx-background-color: #685BAB;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+    -fx-padding: 6 12; /* Ukuran tombol compact */
+}
+.btn-map-action:hover {
+    -fx-background-color: #564a96;
+}
+
+/* Tombol Zoom (+ / -) di pojok bawah */
+.btn-map {
+    -fx-background-color: white;
+    -fx-text-fill: #1F2937;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);
+    -fx-border-color: #F3F4F6;
+    -fx-border-radius: 8;
+}
+.btn-map:hover {
+    -fx-background-color: #F9FAFB;
+    -fx-text-fill: #685BAB;
+}
+
+/* ========================================================== */
+/* 6. SIDEBAR KANAN (CHAT & MITRA) - FULL UNGU                */
+/* ========================================================== */
+.sidebar-right {
+    -fx-background-color: linear-gradient(to bottom, #685BAB 0%, #8B7CCF 100%);
+    -fx-background-radius: 20 0 0 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.4), 15, 0, -5, 0);
+}
+
+.section-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+/* Input Search Transparan Putih */
+.search-field-modern {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 10;
+}
+.search-field-modern:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-border-color: white;
+}
+
+.btn-add {
+    -fx-background-color: white;
+    -fx-text-fill: #685BAB;
+    -fx-background-radius: 10; -fx-min-width: 40; -fx-min-height: 40;
+    -fx-cursor: hand;
+}
+.btn-add:hover { -fx-background-color: #F3F4F6; }
+
+/* FIX: STYLE CHAT CARD (PUTIH SOLID BERSIH) */
+.chat-card {
+    -fx-background-color: white; /* Putih Solid */
+    -fx-background-radius: 12;
+    -fx-border-color: transparent;
+    -fx-border-radius: 12;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+.chat-card:hover {
+    -fx-background-color: #F9FAFB;
+    -fx-scale-x: 1.02; -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 2);
+}
+
+.chat-name {
+    -fx-text-fill: #685BAB; /* Nama Ungu */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.chat-msg {
+    -fx-text-fill: #6B7280; /* Pesan Abu Gelap */
+    -fx-font-size: 11px;
+}
+
+/* Avatar */
+.chat-avatar-bg {
+    -fx-fill: #F3F4F6; /* Lingkaran Abu Terang */
+}
+.chat-avatar-text {
+    -fx-text-fill: #685BAB; /* Inisial Ungu */
+    -fx-font-weight: bold;
+}
+
+
+/* ========================================================== */
+/* 7. MODERN DIALOG / POPUP STYLES (FIXED MERGE)              */
+/* ========================================================== */
+
+/* A. ROOT DIALOG PANE - WAJIB TRANSPARAN */
+.my-dialog-pane {
+    -fx-background-color: transparent !important;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-effect: null; /* Matikan shadow bawaan JavaFX yang kotak */
+}
+
+/* Memastikan child internal dialog pane juga transparan */
+.my-dialog-pane .dialog-pane {
+    -fx-background-color: transparent !important;
+}
+
+/* B. BUTTON BAR (Area Tombol Bawaan) */
+/* FIX: Disatukan dengan body (padding atas dikurangi & background putih) */
+.my-dialog-pane > .button-bar {
+    -fx-background-color: white;
+    /* PADDING ATAS: 5px (Supaya nempel ke konten di atasnya) */
+    -fx-padding: 5 20 20 20;
+
+    -fx-background-radius: 0 0 15 15; /* Melengkung BAWAH Saja */
+    -fx-background-insets: 0;
+    -fx-translate-y: -1px; /* Tutup celah pixel */
+}
+
+/* C. CONTENT BOX (Diatur lewat Java, tapi styling tambahan disini) */
+/* Class ini harus sesuai dengan yang di Controller: contentBox.getStyleClass().add("custom-content-box"); */
+.custom-content-box {
+    -fx-background-color: white;
+    /* PADDING BAWAH: 0px (Supaya nempel ke tombol di bawahnya) */
+    -fx-padding: 20 20 0 20;
+    -fx-background-radius: 0;
+}
+
+/* D. BUTTON STYLE (Tombol di dalam Dialog) */
+.my-dialog-pane .button {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #374151;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+}
+.my-dialog-pane .button:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+/* Tombol Primary (Simpan/OK) */
+.my-dialog-pane .button:default {
+    -fx-background-color: #685BAB;
+    -fx-text-fill: white;
+}
+.my-dialog-pane .button:default:hover {
+    -fx-background-color: #564a96;
+}
+
+/* E. FORM INPUTS (Field di dalam Dialog) */
+.form-field {
+    -fx-background-color: #F9FAFB;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-text-fill: #1F2937;
+}
+.form-field:focused {
+    -fx-border-color: #685BAB;
+    -fx-background-color: white;
+}
+
+/* ========================================================== */
+/* 8. HEADER TEXT STYLING (NEW)                               */
+/* ========================================================== */
+
+.dashboard-title {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 32px; /* Lebih besar dari sebelumnya (28px) */
+    -fx-font-weight: 800; /* Extra Bold */
+
+    /* Warna Ungu Tua Elegan (Senada dengan Sidebar) */
+    -fx-fill: linear-gradient(to right, #4C1D95, #6D28D9);
+
+    /* Sedikit shadow halus agar teks 'pop-up' */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.dashboard-subtitle {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-fill: #6B7280; /* Abu-abu modern */
+    -fx-opacity: 0.9;
+}
+
+/* Container untuk Header (Judul + Subjudul) */
+.dashboard-header-box {
+    /* Memberi jarak yang presisi dari atas dan kiri */
+    -fx-padding: 5 0 15 0;
+}
