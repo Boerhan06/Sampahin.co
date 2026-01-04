@@ -1,0 +1,4 @@
+--patch-module
+com.sampahin=_
+--add-reads
+com.sampahin=ALL-UNNAMED

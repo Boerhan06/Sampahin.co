@@ -1,468 +1,396 @@
 package controller;
 
-import com.sampahin.Main;
-import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
+import javafx.scene.control.cell.PropertyValueFactory;
+import models.RiwayatPenarikan;
+import util.DatabaseConnection;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class RiwayatPenarikanController {
+
+public class RiwayatPenarikanController extends BaseController implements Initializable {
+
 
     @FXML private Label lblCurrentDate;
-    @FXML private Label lblTotalRequest;
-    @FXML private Label lblPending;
-    @FXML private Label lblTotalPoinDitarik;
+
+
+    @FXML private Label lblTotalPenarikan;
+    @FXML private Label lblTotalUangKeluar;
+    @FXML private Label lblTransaksiPending;
+
 
     @FXML private TextField searchField;
-    @FXML private ComboBox<String> sortComboBox;
+    @FXML private ComboBox<String> cmbSort;
+    @FXML private Label lblPaginationInfo;
 
-    @FXML private TableView<WithdrawalData> tableWithdrawal;
-    @FXML private TableColumn<WithdrawalData, String> colUsername;
-    @FXML private TableColumn<WithdrawalData, String> colIdKartu;
-    @FXML private TableColumn<WithdrawalData, String> colTanggal;
-    @FXML private TableColumn<WithdrawalData, Number> colJumlahPoin;
-    @FXML private TableColumn<WithdrawalData, BigDecimal> colNilaiRupiah;
-    @FXML private TableColumn<WithdrawalData, String> colMetode;
-    @FXML private TableColumn<WithdrawalData, String> colStatus;
-    @FXML private TableColumn<WithdrawalData, Void> colAction;
 
-    @FXML private Label lblPagination;
-    @FXML private Label lblPageNumber;
+    @FXML private TableView<RiwayatPenarikan> tableRiwayat;
+    @FXML private TableColumn<RiwayatPenarikan, String> colId;
+    @FXML private TableColumn<RiwayatPenarikan, String> colUsername;
+    @FXML private TableColumn<RiwayatPenarikan, String> colTanggal;
+    @FXML private TableColumn<RiwayatPenarikan, String> colMetode;
+    @FXML private TableColumn<RiwayatPenarikan, Double> colJumlah;
+    @FXML private TableColumn<RiwayatPenarikan, String> colStatus;
 
-    private ObservableList<WithdrawalData> allData = FXCollections.observableArrayList();
-    private ObservableList<WithdrawalData> filteredData = FXCollections.observableArrayList();
 
-    private int currentPage = 1;
-    private final int rowsPerPage = 20;
+    private ObservableList<RiwayatPenarikan> allData = FXCollections.observableArrayList();
+    private ObservableList<RiwayatPenarikan> filteredData = FXCollections.observableArrayList();
+
+    private final DecimalFormat currencyFormat = new DecimalFormat("#,###");
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setupTable();
+        setupSortFilter();
+        updateCurrentDate();
+        loadDataFromDatabase();
+
+
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> handleSearch());
+    }
+
+    @Override
+    protected void updateUI() {
+
+        if (currentAkun != null) {
+            System.out.println("✅ RiwayatPenarikan: Akses oleh Admin " + currentAkun.getNamaLengkap());
+        }
+    }
+
+
+
+    private void setupSortFilter() {
+        ObservableList<String> sortOptions = FXCollections.observableArrayList(
+                "Waktu: Terbaru",
+                "Waktu: Terlama",
+                "Nominal: Tertinggi",
+                "Nominal: Terendah",
+                "Status: Pending (Prioritas)",
+                "Status: Berhasil",
+                "Status: Gagal"
+        );
+
+        cmbSort.setItems(sortOptions);
+        cmbSort.setValue("Waktu: Terbaru");
+
+
+        cmbSort.setOnAction(e -> handleSort());
+    }
 
     @FXML
-    public void initialize() {
-        setupCurrentDate();
-        setupSortOptions();
-        setupTableColumns();
-        loadSampleData();
-        setupSearchListener();
-        updateStats();
-        updateTable();
-    }
-
-    private void setupCurrentDate() {
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", new Locale("id", "ID"));
-        lblCurrentDate.setText(today.format(formatter));
-    }
-    private void navigateTo(
-            String fxmlFile,
-            String title
-    ){}
-    private void setupSortOptions() {
-        sortComboBox.setItems(FXCollections.observableArrayList(
-                "Tanggal Terbaru",
-                "Tanggal Terlama",
-                "Poin Tertinggi",
-                "Poin Terendah",
-                "Status: Pending",
-                "Status: Approved"
-        ));
-
-        sortComboBox.setValue("Tanggal Terbaru");
-        sortComboBox.setOnAction(e -> handleSort());
-    }
-
-    private void setupTableColumns() {
-        // Username Column
-        colUsername.setCellValueFactory(data -> data.getValue().usernameProperty());
-        colUsername.setCellFactory(col -> new TableCell<WithdrawalData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    setText(item);
-                    setStyle("-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 14px;");
-                }
-            }
-        });
-
-        // ID Kartu Column
-        colIdKartu.setCellValueFactory(data -> data.getValue().idKartuProperty());
-        colIdKartu.setCellFactory(col -> new TableCell<WithdrawalData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setStyle("-fx-font-family: 'Courier New', monospace; -fx-text-fill: #6b7280; -fx-font-size: 13px;");
-                }
-            }
-        });
-
-        // Tanggal Column
-        colTanggal.setCellValueFactory(data -> data.getValue().tanggalProperty());
-        colTanggal.setCellFactory(col -> new TableCell<WithdrawalData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setStyle("-fx-text-fill: #4b5563; -fx-font-size: 13px;");
-                }
-            }
-        });
-
-        // Jumlah Poin Column
-        colJumlahPoin.setCellValueFactory(data -> data.getValue().jumlahPoinProperty());
-        colJumlahPoin.setCellFactory(col -> new TableCell<WithdrawalData, Number>() {
-            @Override
-            protected void updateItem(Number item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%,d", item.intValue()));
-                    setStyle("-fx-font-weight: bold; -fx-text-fill: #685BAB; -fx-font-size: 14px;");
-                }
-            }
-        });
-
-        // Nilai Rupiah Column
-        colNilaiRupiah.setCellValueFactory(data -> data.getValue().nilaiRupiahProperty());
-        colNilaiRupiah.setCellFactory(col -> new TableCell<WithdrawalData, BigDecimal>() {
-            @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-                    setText(formatter.format(item));
-                    setStyle("-fx-font-weight: 600; -fx-text-fill: #059669; -fx-font-size: 14px;");
-                }
-            }
-        });
-
-        // Metode Column
-        colMetode.setCellValueFactory(data -> data.getValue().metodeProperty());
-        colMetode.setCellFactory(col -> new TableCell<WithdrawalData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setStyle("-fx-text-fill: #6b7280; -fx-font-size: 13px;");
-                }
-            }
-        });
-
-        // Status Column
-        colStatus.setCellValueFactory(data -> data.getValue().statusProperty());
-        colStatus.setCellFactory(col -> new TableCell<WithdrawalData, String>() {
-            @Override
-            protected void updateItem(String status, boolean empty) {
-                super.updateItem(status, empty);
-                if (empty || status == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    Label badge = new Label(status.toUpperCase());
-                    badge.setAlignment(Pos.CENTER);
-
-                    switch (status.toLowerCase()) {
-                        case "pending":
-                            badge.getStyleClass().add("status-pending");
-                            break;
-                        case "approved":
-                            badge.getStyleClass().add("status-approved");
-                            break;
-                        case "rejected":
-                            badge.getStyleClass().add("status-rejected");
-                            break;
-                    }
-
-                    setGraphic(badge);
-                    setText(null);
-                }
-            }
-        });
-
-        // Action Column
-        colAction.setCellFactory(col -> new TableCell<WithdrawalData, Void>() {
-            private final Button btnApprove = new Button("✓");
-            private final Button btnReject = new Button("✗");
-            private final Button btnView = new Button("👁");
-            private final HBox container = new HBox(5, btnApprove, btnReject, btnView);
-
-            {
-                btnApprove.getStyleClass().add("btn-approve");
-                btnReject.getStyleClass().add("btn-reject");
-                btnView.getStyleClass().add("btn-view");
-                container.setAlignment(Pos.CENTER);
-
-                btnApprove.setOnAction(e -> {
-                    WithdrawalData data = getTableRow().getItem();
-                    if (data != null) {
-                        handleApprove(data);
-                    }
-                });
-
-                btnReject.setOnAction(e -> {
-                    WithdrawalData data = getTableRow().getItem();
-                    if (data != null) {
-                        handleReject(data);
-                    }
-                });
-
-                btnView.setOnAction(e -> {
-                    WithdrawalData data = getTableRow().getItem();
-                    if (data != null) {
-                        handleView(data);
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    WithdrawalData data = getTableRow().getItem();
-                    if (data != null && "pending".equalsIgnoreCase(data.getStatus())) {
-                        setGraphic(container);
-                    } else {
-                        setGraphic(btnView);
-                    }
-                }
-            }
-        });
-    }
-
-    private void loadSampleData() {
-        String[] usernames = {"ahmad_r", "budi_s", "citra_m", "dewi_l", "eko_p", "fajar_w", "gita_n", "hadi_k"};
-        String[] metodes = {"Bank Transfer", "GoPay", "OVO", "DANA", "ShopeePay"};
-        String[] statuses = {"Pending", "Approved", "Rejected"};
-
-        for (int i = 1; i <= 100; i++) {
-            String username = usernames[i % usernames.length];
-            String idKartu = String.format("USR-%05d", 1000 + i);
-            String tanggal = String.format("%02d Mei 2024", (i % 28) + 1);
-            int poin = (int) (Math.random() * 5000) + 500;
-            BigDecimal rupiah = BigDecimal.valueOf(poin * 10);
-            String metode = metodes[i % metodes.length];
-            String status = statuses[i % 3];
-
-            allData.add(new WithdrawalData(username, idKartu, tanggal, poin, rupiah, metode, status));
-        }
-
-        filteredData.setAll(allData);
-    }
-
-    private void setupSearchListener() {
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
-            filterData(newVal);
-        });
-    }
-
-    private void filterData(String searchText) {
-        if (searchText == null || searchText.trim().isEmpty()) {
-            filteredData.setAll(allData);
-        } else {
-            String lowerSearch = searchText.toLowerCase().trim();
-            filteredData.setAll(allData.filtered(data ->
-                    data.getUsername().toLowerCase().contains(lowerSearch) ||
-                            data.getIdKartu().toLowerCase().contains(lowerSearch)
-            ));
-        }
-        currentPage = 1;
-        updateTable();
-        updateStats();
-    }
-
     private void handleSort() {
-        String sortOption = sortComboBox.getValue();
+        String selected = cmbSort.getValue();
+        if (selected == null) return;
 
-        switch (sortOption) {
-            case "Tanggal Terbaru":
-                // Already in order
+        Comparator<RiwayatPenarikan> comparator = null;
+
+        switch (selected) {
+            case "Waktu: Terbaru":
+                comparator = Comparator.comparing(RiwayatPenarikan::getRawDateTime).reversed();
                 break;
-            case "Tanggal Terlama":
-                FXCollections.reverse(filteredData);
+            case "Waktu: Terlama":
+                comparator = Comparator.comparing(RiwayatPenarikan::getRawDateTime);
                 break;
-            case "Poin Tertinggi":
-                filteredData.sort((a, b) -> Integer.compare(b.getJumlahPoin(), a.getJumlahPoin()));
+            case "Nominal: Tertinggi":
+                comparator = Comparator.comparingDouble(RiwayatPenarikan::getJumlah).reversed();
                 break;
-            case "Poin Terendah":
-                filteredData.sort((a, b) -> Integer.compare(a.getJumlahPoin(), b.getJumlahPoin()));
+            case "Nominal: Terendah":
+                comparator = Comparator.comparingDouble(RiwayatPenarikan::getJumlah);
                 break;
-            case "Status: Pending":
-                filteredData.setAll(allData.filtered(d -> "pending".equalsIgnoreCase(d.getStatus())));
+            case "Status: Pending (Prioritas)":
+                comparator = Comparator.comparing((RiwayatPenarikan r) ->
+                                r.getStatus().equalsIgnoreCase("Pending") ? 0 : 1)
+                        .thenComparing(Comparator.comparing(RiwayatPenarikan::getRawDateTime).reversed());
                 break;
-            case "Status: Approved":
-                filteredData.setAll(allData.filtered(d -> "approved".equalsIgnoreCase(d.getStatus())));
+            case "Status: Berhasil":
+                comparator = Comparator.comparing((RiwayatPenarikan r) ->
+                                r.getStatus().equalsIgnoreCase("Berhasil") ? 0 : 1)
+                        .thenComparing(Comparator.comparing(RiwayatPenarikan::getRawDateTime).reversed());
+                break;
+            case "Status: Gagal":
+                comparator = Comparator.comparing((RiwayatPenarikan r) ->
+                                r.getStatus().equalsIgnoreCase("Gagal") ? 0 : 1)
+                        .thenComparing(Comparator.comparing(RiwayatPenarikan::getRawDateTime).reversed());
                 break;
         }
 
-        currentPage = 1;
-        updateTable();
-    }
-
-    private void updateTable() {
-        int start = (currentPage - 1) * rowsPerPage;
-        int end = Math.min(start + rowsPerPage, filteredData.size());
-
-        tableWithdrawal.setItems(FXCollections.observableArrayList(
-                filteredData.subList(start, end)
-        ));
-
-        lblPageNumber.setText(String.valueOf(currentPage));
-        lblPagination.setText(String.format("Menampilkan %d-%d dari %d data",
-                start + 1, end, filteredData.size()));
-    }
-
-    private void updateStats() {
-        lblTotalRequest.setText(String.valueOf(allData.size()));
-
-        long pendingCount = allData.stream()
-                .filter(d -> "pending".equalsIgnoreCase(d.getStatus()))
-                .count();
-        lblPending.setText(String.valueOf(pendingCount));
-
-        int totalPoin = allData.stream()
-                .filter(d -> "approved".equalsIgnoreCase(d.getStatus()))
-                .mapToInt(WithdrawalData::getJumlahPoin)
-                .sum();
-        lblTotalPoinDitarik.setText(String.format("%,d", totalPoin));
-    }
-
-    @FXML
-    private void handlePrevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable();
+        if (comparator != null) {
+            FXCollections.sort(filteredData, comparator);
         }
     }
 
-    @FXML
-    private void handleNextPage() {
-        int maxPage = (int) Math.ceil((double) filteredData.size() / rowsPerPage);
-        if (currentPage < maxPage) {
-            currentPage++;
-            updateTable();
+
+
+    private void loadDataFromDatabase() {
+        allData.clear();
+
+
+        String query = "SELECT r.*, a.username FROM riwayat_penarikan r " +
+                "JOIN akun a ON r.idAkun = a.idAkun " +
+                "ORDER BY r.waktu_transaksi DESC";
+
+        Connection conn = DatabaseConnection.getInstance().getConnection();
+
+        if (conn == null) {
+            showAlert("Error Koneksi", "Tidak dapat terhubung ke database.");
+            return;
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            DateTimeFormatter dbFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter viewFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm", new Locale("id", "ID"));
+
+            while (rs.next()) {
+                String id = "WD-" + rs.getInt("id_penarikan");
+                String username = rs.getString("username");
+                String metode = rs.getString("metode_penarikan");
+                double jumlah = rs.getDouble("jumlah_penarikan");
+                String status = rs.getString("status_penarikan");
+                String rawDate = rs.getString("waktu_transaksi");
+
+
+                LocalDateTime ldt = LocalDateTime.now();
+                String formattedDate = rawDate;
+                try {
+                    if (rawDate != null && rawDate.contains(".")) {
+                        rawDate = rawDate.substring(0, rawDate.indexOf("."));
+                    }
+                    ldt = LocalDateTime.parse(rawDate, dbFormat);
+                    formattedDate = ldt.format(viewFormat);
+                } catch (Exception e) {
+                    System.err.println("Gagal memproses format tanggal: " + e.getMessage());
+                }
+
+
+                allData.add(new RiwayatPenarikan(id, username, formattedDate, ldt, metode, jumlah, status));
+            }
+
+
+            filteredData.setAll(allData);
+            tableRiwayat.setItems(filteredData);
+
+
+            handleSort();
+            updateStatistics();
+            updatePaginationInfo();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error Database", "Gagal mengambil data: " + e.getMessage());
         }
     }
 
-    @FXML
-    private void handleExport() {
-        System.out.println("Export to CSV functionality");
-        // TODO: Implement CSV export
+    private void handleUpdateStatus(RiwayatPenarikan data, String newStatus) {
+        if (data == null) return;
+
+
+        if (!data.getStatus().equalsIgnoreCase("Pending")) {
+            return;
+        }
+
+
+        String idStr = data.getIdPenarikan().replace("WD-", "");
+        String sql = "UPDATE riwayat_penarikan SET status_penarikan = ? WHERE id_penarikan = ?";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, newStatus);
+            pstmt.setInt(2, Integer.parseInt(idStr));
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+
+                loadDataFromDatabase();
+            }
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+            showAlert("Error Update", "Gagal memperbarui status transaksi.");
+        }
     }
 
-    private void handleApprove(WithdrawalData data) {
-        data.setStatus("Approved");
-        tableWithdrawal.refresh();
-        updateStats();
-        System.out.println("Approved: " + data.getUsername());
-    }
 
-    private void handleReject(WithdrawalData data) {
-        data.setStatus("Rejected");
-        tableWithdrawal.refresh();
-        updateStats();
-        System.out.println("Rejected: " + data.getUsername());
-    }
 
-    private void handleView(WithdrawalData data) {
-        System.out.println("View details for: " + data.getUsername());
-        // TODO: Show detail dialog
-    }
+    private void setupTable() {
+        // Hubungkan kolom dengan property pada model RiwayatPenarikan
+        colId.setCellValueFactory(new PropertyValueFactory<>("idPenarikan"));
+        colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        colMetode.setCellValueFactory(new PropertyValueFactory<>("metode"));
+        colJumlah.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-    @FXML
-    private void handleDashboard() {
-        Main.showDashboardView();
-    }
 
-    @FXML
-    private void handleUsers() {
-        Main.showDaftarPenggunaView();
-    }
+        colId.setCellFactory(col -> new TableCell<>() {
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) setText(null);
+                else {
+                    setText(item);
+                    setStyle("-fx-font-family: 'Consolas', monospace; -fx-text-fill: #6b7280;");
+                }
+            }
+        });
 
-    @FXML
-    private void handleWasteIncoming() {
-        Main.showPemasukanSampahView();
-    }
 
-    @FXML
-    private void handleLogout() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Konfirmasi Logout");
-        alert.setHeaderText("Apakah Anda yakin ingin keluar?");
-        alert.setContentText("Anda akan kembali ke halaman login.");
+        colUsername.setCellFactory(col -> new TableCell<>() {
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) setText(null);
+                else {
+                    setText(item);
+                    setStyle("-fx-font-weight: bold; -fx-text-fill: #1f2937;");
+                }
+            }
+        });
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                navigateTo("login.fxml", "Login");
+
+        colJumlah.setCellFactory(col -> new TableCell<>() {
+            @Override protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) setText(null);
+                else {
+                    setText("Rp " + currencyFormat.format(item));
+                    setStyle("-fx-font-weight: bold; -fx-text-fill: #EF4444;");
+                }
+            }
+        });
+
+
+        colMetode.setCellFactory(col -> new TableCell<>() {
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) { setGraphic(null); setText(null); }
+                else {
+                    Label badge = new Label(item);
+                    String style = "-fx-background-color: #F3F4F6; -fx-text-fill: #374151;";
+                    String lower = item.toLowerCase();
+                    if (lower.contains("bca") || lower.contains("bank")) style = "-fx-background-color: #DBEAFE; -fx-text-fill: #1E40AF;";
+                    else if (lower.contains("tunai")) style = "-fx-background-color: #D1FAE5; -fx-text-fill: #065F46;";
+                    else if (lower.contains("ovo") || lower.contains("gopay") || lower.contains("dana"))
+                        style = "-fx-background-color: #FCE7F3; -fx-text-fill: #9D174D;";
+
+                    badge.setStyle(style + "-fx-background-radius: 4; -fx-padding: 2 8; -fx-font-size: 11px; -fx-font-weight: bold;");
+                    setGraphic(badge); setText(null);
+                }
+            }
+        });
+
+
+        colStatus.setCellFactory(col -> new TableCell<RiwayatPenarikan, String>() {
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    if (item.equalsIgnoreCase("Pending")) {
+
+                        MenuButton statusBtn = new MenuButton(item.toUpperCase());
+                        statusBtn.setStyle("-fx-background-color: #FEECDC; -fx-text-fill: #8A2C0D; " +
+                                "-fx-background-radius: 12; -fx-font-size: 10px; -fx-font-weight: bold; -fx-cursor: hand;");
+
+                        MenuItem actionApprove = new MenuItem("Setujui (Berhasil)");
+                        MenuItem actionReject = new MenuItem("Tolak (Gagal)");
+
+                        actionApprove.setOnAction(e -> handleUpdateStatus(getTableRow().getItem(), "Berhasil"));
+                        actionReject.setOnAction(e -> handleUpdateStatus(getTableRow().getItem(), "Gagal"));
+
+                        statusBtn.getItems().addAll(actionApprove, actionReject);
+                        setGraphic(statusBtn);
+                    } else {
+
+                        Label badge = new Label(item.toUpperCase());
+                        String style = "-fx-background-radius: 12; -fx-padding: 4 10; -fx-font-size: 10px; -fx-font-weight: bold;";
+                        if (item.equalsIgnoreCase("Berhasil") || item.equalsIgnoreCase("Approved"))
+                            style += "-fx-background-color: #DEF7EC; -fx-text-fill: #03543F;";
+                        else
+                            style += "-fx-background-color: #FDE8E8; -fx-text-fill: #9B1C1C;";
+
+                        badge.setStyle(style);
+                        setGraphic(badge);
+                    }
+                    setText(null);
+                }
             }
         });
     }
-    // Data Model Class
-    public static class WithdrawalData {
-        private final StringProperty username;
-        private final StringProperty idKartu;
-        private final StringProperty tanggal;
-        private final IntegerProperty jumlahPoin;
-        private final ObjectProperty<BigDecimal> nilaiRupiah;
-        private final StringProperty metode;
-        private final StringProperty status;
 
-        public WithdrawalData(String username, String idKartu, String tanggal,
-                              int jumlahPoin, BigDecimal nilaiRupiah, String metode, String status) {
-            this.username = new SimpleStringProperty(username);
-            this.idKartu = new SimpleStringProperty(idKartu);
-            this.tanggal = new SimpleStringProperty(tanggal);
-            this.jumlahPoin = new SimpleIntegerProperty(jumlahPoin);
-            this.nilaiRupiah = new SimpleObjectProperty<>(nilaiRupiah);
-            this.metode = new SimpleStringProperty(metode);
-            this.status = new SimpleStringProperty(status);
+
+
+    private void updateStatistics() {
+        int total = allData.size();
+        double totalUang = allData.stream()
+                .filter(d -> "Berhasil".equalsIgnoreCase(d.getStatus()) || "Approved".equalsIgnoreCase(d.getStatus()))
+                .mapToDouble(RiwayatPenarikan::getJumlah)
+                .sum();
+        long pending = allData.stream()
+                .filter(d -> "Pending".equalsIgnoreCase(d.getStatus()))
+                .count();
+
+        lblTotalPenarikan.setText(String.valueOf(total));
+        lblTotalUangKeluar.setText("Rp " + currencyFormat.format(totalUang));
+        lblTransaksiPending.setText(String.valueOf(pending));
+    }
+
+    private void updateCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+        lblCurrentDate.setText(sdf.format(new Date()));
+    }
+
+    private void updatePaginationInfo() {
+        lblPaginationInfo.setText("Menampilkan " + filteredData.size() + " data penarikan");
+    }
+
+    @FXML
+    private void handleSearch() {
+        String keyword = searchField.getText().toLowerCase().trim();
+        filteredData.clear();
+
+        if (keyword.isEmpty()) {
+            filteredData.addAll(allData);
+        } else {
+            for (RiwayatPenarikan data : allData) {
+                if (data.getUsername().toLowerCase().contains(keyword) ||
+                        data.getIdPenarikan().toLowerCase().contains(keyword) ||
+                        data.getMetode().toLowerCase().contains(keyword) ||
+                        data.getStatus().toLowerCase().contains(keyword)) {
+                    filteredData.add(data);
+                }
+            }
         }
 
-        // Properties
-        public StringProperty usernameProperty() { return username; }
-        public StringProperty idKartuProperty() { return idKartu; }
-        public StringProperty tanggalProperty() { return tanggal; }
-        public IntegerProperty jumlahPoinProperty() { return jumlahPoin; }
-        public ObjectProperty<BigDecimal> nilaiRupiahProperty() { return nilaiRupiah; }
-        public StringProperty metodeProperty() { return metode; }
-        public StringProperty statusProperty() { return status; }
 
-        // Getters
-        public String getUsername() { return username.get(); }
-        public String getIdKartu() { return idKartu.get(); }
-        public String getTanggal() { return tanggal.get(); }
-        public int getJumlahPoin() { return jumlahPoin.get(); }
-        public BigDecimal getNilaiRupiah() { return nilaiRupiah.get(); }
-        public String getMetode() { return metode.get(); }
-        public String getStatus() { return status.get(); }
+        handleSort();
+        updatePaginationInfo();
+    }
 
-        // Setters
-        public void setStatus(String status) { this.status.set(status); }
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

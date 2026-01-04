@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 
 public class SampahB3 extends Sampah {
 
-    // Atribut khusus B3 (Bahan Berbahaya & Beracun)
     private StringProperty petunjukPenanganan;
 
     public SampahB3(String jenisSampah, BigDecimal hargaPoinPerKg, String petunjukPenanganan) {
@@ -24,7 +23,6 @@ public class SampahB3 extends Sampah {
         return "B3";
     }
 
-    // --- Getter/Setter/Property
     public String getPetunjukPenanganan() { return petunjukPenanganan.get(); }
     public void setPetunjukPenanganan(String petunjuk) { this.petunjukPenanganan.set(petunjuk); }
     public StringProperty petunjukPenangananProperty() { return petunjukPenanganan; }

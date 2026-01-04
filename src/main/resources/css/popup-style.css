@@ -1,0 +1,113 @@
+/* ========================================================== */
+/* POPUP / DIALOG STYLES (SINGLE CARD LOOK)                   */
+/* ========================================================== */
+
+/* 1. ROOT DIALOG PANE (Wajib Transparan) */
+.my-dialog-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Menghilangkan background bawaan windows */
+.my-dialog-pane .dialog-pane {
+    -fx-background-color: transparent;
+}
+
+/* 2. MAIN CARD LAYOUT (Wadah Utama) */
+/* Ini adalah "Kertas" putih yang melayang */
+.dialog-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20; /* Sudut Tumpul Total */
+    -fx-border-radius: 20;
+    /* Shadow Halus di sekeliling kartu */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 30, 0, 0, 10);
+    -fx-padding: 0; /* Padding 0 agar header nempel ke tepi */
+}
+
+/* 3. HEADER BOX (Bagian Ungu Atas) */
+.custom-header-box {
+    -fx-background-color: linear-gradient(to right, #685BAB, #8B7CCF);
+    -fx-padding: 25 0;
+    -fx-alignment: center;
+    /* Melengkung HANYA di ATAS (Kiri & Kanan) */
+    -fx-background-radius: 20 20 0 0;
+}
+
+.header-icon-bg {
+    -fx-fill: rgba(255, 255, 255, 0.2);
+    -fx-stroke: rgba(255, 255, 255, 0.3);
+    -fx-stroke-width: 1.5;
+}
+
+/* 4. CONTENT BOX (Tengah - Form) */
+.custom-content-box {
+    -fx-background-color: transparent; /* Transparan agar ikut warna Card */
+    -fx-padding: 20 30 10 30; /* Jarak kiri kanan form */
+    -fx-alignment: top-center;
+}
+
+/* 5. FOOTER BOX (Bawah - Tombol) */
+.custom-footer-box {
+    -fx-background-color: transparent;
+    -fx-padding: 0 30 25 30; /* Jarak bawah */
+    -fx-alignment: center;
+    -fx-spacing: 15; /* Jarak antar tombol */
+
+    /* Melengkung HANYA di BAWAH (tidak wajib jika background transparan, tapi bagus untuk safety) */
+    -fx-background-radius: 0 0 20 20;
+}
+
+/* 6. TYPOGRAPHY */
+.dialog-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #374151;
+}
+
+.dialog-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6B7280;
+    -fx-text-alignment: center;
+}
+
+.dialog-label-bold {
+    -fx-text-fill: #685BAB;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+/* 7. FORM INPUTS */
+.form-field {
+    -fx-background-color: #F9FAFB;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #1F2937;
+}
+.form-field:focused {
+    -fx-border-color: #685BAB;
+    -fx-background-color: white;
+}
+
+/* 8. BUTTONS (Custom Manual) */
+.btn-cancel {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #4B5563;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 25;
+}
+.btn-cancel:hover { -fx-background-color: #E5E7EB; }
+
+.btn-save {
+    -fx-background-color: #685BAB;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(104, 91, 171, 0.3), 10, 0, 0, 3);
+}
+.btn-save:hover { -fx-background-color: #564a96; }

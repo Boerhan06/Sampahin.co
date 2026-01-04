@@ -26,10 +26,10 @@ public class ProfilController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Animasi Kartu Profil Utama (Zoom In + Fade)
+
         playMainCardAnimation();
 
-        // 2. Animasi Kartu Bawah (Slide Up)
+
         playBottomCardAnimation(cardHistory, 200);
         playBottomCardAnimation(cardPoints, 350);
     }
@@ -45,7 +45,7 @@ public class ProfilController implements Initializable {
         ScaleTransition scale = new ScaleTransition(Duration.millis(800), profileCard);
         scale.setToX(1.0);
         scale.setToY(1.0);
-        // Efek membal halus
+
         scale.setInterpolator(javafx.animation.Interpolator.EASE_OUT);
 
         fade.play();

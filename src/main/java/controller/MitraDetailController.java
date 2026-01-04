@@ -15,28 +15,28 @@ import java.util.ResourceBundle;
 public class MitraDetailController implements Initializable {
 
     @FXML
-    private VBox rightPanel; // Sidebar Kanan
+    private VBox rightPanel;
 
     @FXML
-    private VBox mainCard;   // Kartu Besar di Tengah
+    private VBox mainCard;
 
     @FXML
-    private VBox trashListContainer; // List Sampah di Kanan
+    private VBox trashListContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Animasi Sidebar Kanan (Slide In dari Kanan)
+
         playRightPanelAnimation();
 
-        // 2. Animasi Kartu Utama (Pop Up)
+
         playPopUpAnimation(mainCard, 200);
 
-        // 3. Animasi List Sampah (Cascading)
+
         playCascadingAnimation();
     }
 
     private void playRightPanelAnimation() {
-        rightPanel.setTranslateX(300); // Mulai di luar layar kanan
+        rightPanel.setTranslateX(300);
 
         TranslateTransition slide = new TranslateTransition(Duration.millis(800), rightPanel);
         slide.setToX(0);
@@ -64,7 +64,7 @@ public class MitraDetailController implements Initializable {
     }
 
     private void playCascadingAnimation() {
-        int delay = 500; // Mulai setelah sidebar kanan masuk
+        int delay = 500; 
 
         for (Node node : trashListContainer.getChildren()) {
             node.setOpacity(0);

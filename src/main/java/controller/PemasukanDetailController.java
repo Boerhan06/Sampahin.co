@@ -22,10 +22,10 @@ public class PemasukanDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Animasi Masuk Card Utama (Fade In)
+
         playMainCardEntrance();
 
-        // 2. Animasi Kolom Turun Berurutan
+
         playColumnAnimations();
     }
 
@@ -45,21 +45,21 @@ public class PemasukanDetailController implements Initializable {
     }
 
     private void playColumnAnimations() {
-        int delay = 300; // Mulai setelah card utama muncul
+        int delay = 300;
 
-        // Loop setiap anak di dalam Grid (yaitu kolom VBox)
+
         for (Node node : columnGrid.getChildren()) {
             if (node instanceof VBox) {
-                // Set posisi awal (di atas dan transparan)
+
                 node.setOpacity(0);
                 node.setTranslateY(-50);
 
-                // Fade In
+
                 FadeTransition fade = new FadeTransition(Duration.millis(600), node);
                 fade.setToValue(1);
                 fade.setDelay(Duration.millis(delay));
 
-                // Slide Down ke posisi 0
+
                 TranslateTransition translate = new TranslateTransition(Duration.millis(600), node);
                 translate.setToY(0);
                 translate.setDelay(Duration.millis(delay));
@@ -68,7 +68,7 @@ public class PemasukanDetailController implements Initializable {
                 fade.play();
                 translate.play();
 
-                delay += 150; // Jeda untuk kolom berikutnya
+                delay += 150;
             }
         }
     }

@@ -1,17 +1,19 @@
 package com.sampahin;
 
-import controller.DashboardController; // Pastikan package controller benar
-import models.Akun;                    // Pastikan package models benar
-
+import controller.BaseController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.Akun;
+import models.Mitra;
+
 import java.io.IOException;
 import java.net.URL;
 
 public class Main extends Application {
+
     private static Stage primaryStage;
 
     @Override
@@ -19,116 +21,136 @@ public class Main extends Application {
         primaryStage = stage;
         primaryStage.setTitle("Sampahin.co - Admin System");
 
-        // Mulai dari halaman Login
+
         showLoginView();
+
+        primaryStage.show();
     }
 
-    // --- NAVIGASI LAYAR ---
+
 
     public static void showLoginView() {
-        changeScene("/view/LoginView.fxml", "Login Admin", true);
+        changeScene("/view/LoginView.fxml", "Login System", true);
     }
 
     public static void showRegisterView() {
-        changeScene("/view/RegisterView.fxml", "Registrasi - Data Diri", true);
+        changeScene("/view/RegisterView.fxml", "Registrasi Akun Baru", true);
     }
 
     public static void showRegisterNextView() {
-        changeScene("/view/RegisterNextView.fxml", "Registrasi - Setup Akun", false);
+        changeScene("/view/RegisterNextView.fxml", "Registrasi Tahap 2", true);
     }
 
-    /**
-     * KHUSUS DASHBOARD: Menerima data Akun agar bisa ditampilkan namanya.
-     */
+
+
+
     public static void showDashboardView(Akun akun) {
-        // Kita panggil changeScene, tapi kita tampung return value-nya (loader)
-        FXMLLoader loader = changeScene("/view/DashboardView.fxml", "Dashboard Utama", false);
+        if (akun instanceof Mitra) {
+
+            showViewWithAkun("/view/DashboardMitraView.fxml", "Dashboard Mitra", akun);
+        } else {
+
+            showViewWithAkun("/view/DashboardView.fxml", "Dashboard Admin", akun);
+        }
+    }
+
+
+    public static void showDashboardMitraView(Akun akun) {
+        showViewWithAkun("/view/DashboardMitraView.fxml", "Dashboard Mitra", akun);
+    }
+
+    public static void showDaftarPenggunaView(Akun akun) {
+        showViewWithAkun("/view/DaftarPenggunaView.fxml", "Kelola Pengguna", akun);
+    }
+
+    public static void showPemasukanSampahView(Akun akun) {
+        showViewWithAkun("/view/PemasukanSampahView.fxml", "Input Pemasukan Sampah", akun);
+    }
+
+    public static void showRiwayatPenarikanView(Akun akun) {
+        showViewWithAkun("/view/RiwayatPenarikanView.fxml", "Riwayat Transaksi", akun);
+    }
+
+    public static void showEditProfilView(Akun akun) {
+        showViewWithAkun("/view/EditProfilView.fxml", "Edit Profil Saya", akun);
+    }
+
+
+
+
+    private static void showViewWithAkun(String fxmlPath, String title, Akun akun) {
+
+        FXMLLoader loader = changeScene(fxmlPath, title, false);
 
         if (loader != null) {
-            // Ambil controller dari loader
-            Object controllerObj = loader.getController();
 
-            // Cek apakah controller-nya benar DashboardController
-            if (controllerObj instanceof DashboardController) {
-                DashboardController controller = (DashboardController) controllerObj;
-                // Kirim data akun ke controller dashboard
-                controller.setAkunData(akun);
+            Object controller = loader.getController();
+
+
+            if (controller instanceof BaseController) {
+
+                ((BaseController) controller).setAkunData(akun);
+            } else {
+                System.err.println("⚠️ WARNING: Controller untuk " + fxmlPath + " tidak extends BaseController. Data akun tidak terkirim.");
             }
         }
     }
 
-    // Overloading method untuk testing tanpa login (opsional)
-    public static void showDashboardView() {
-        showDashboardView(null);
-    }
 
-    public static void showDaftarPenggunaView() {
-        changeScene("/view/daftar-pengguna.fxml", "Daftar Pengguna", false);
-    }
-
-    public static void showPemasukanSampahView() {
-        changeScene("/view/PemasukanSampahView.fxml", "Pemasukan Sampah", false);
-    }
-
-    public static void showRiwayatPenarikanView() {
-        changeScene("/view/riwayat-penarikan.fxml", "Riwayat Penarikan Poin", false);
-    }
-
-    public static  void showEditProfilView() {
-        changeScene("/view/EditProfilView.fxml", "Edit Profil", false);
-    }
-
-    // --- HELPER UTAMA (GANTI SCENE) ---
-
-    // Return FXMLLoader agar bisa akses controller
     private static FXMLLoader changeScene(String fxmlPath, String title, boolean isSmallWindow) {
         FXMLLoader loader = null;
         try {
+
             URL url = Main.class.getResource(fxmlPath);
             if (url == null) {
-                System.err.println("❌ FXML Tidak Ditemukan: " + fxmlPath);
+                System.err.println("❌ FATAL ERROR: File FXML Tidak Ditemukan: " + fxmlPath);
+                System.err.println("   Pastikan file ada di folder src/main/resources/view/");
                 return null;
             }
 
+
             loader = new FXMLLoader(url);
             Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            primaryStage.setScene(scene);
+
+            if (primaryStage.getScene() == null) {
+                primaryStage.setScene(new Scene(root));
+            } else {
+                primaryStage.getScene().setRoot(root);
+            }
+
+
             primaryStage.setTitle("Sampahin.co - " + title);
 
-            // --- LOGIKA TAMPILAN (Sesuai Permintaan) ---
+
             if (isSmallWindow) {
-                // --- MODE LAYAR KECIL (Login/Register) ---
+
                 primaryStage.setMaximized(false);
                 primaryStage.setWidth(1024);
-                primaryStage.setHeight(700);
+                primaryStage.setHeight(650);
                 primaryStage.setResizable(false);
                 primaryStage.centerOnScreen();
             } else {
-                // --- MODE LAYAR BESAR (Dashboard) ---
+
                 primaryStage.setResizable(true);
 
-                // Trik Paksa Full Screen ulang agar tidak bug
-                primaryStage.setMaximized(true);
-            }
 
-            // Hanya center jika window kecil, kalau full screen biarkan
-            if (isSmallWindow) {
-                primaryStage.centerOnScreen();
+                if (!primaryStage.isMaximized()) {
+                    primaryStage.setMaximized(true);
+                }
             }
 
             primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("❌ Terjadi kesalahan saat memuat view: " + e.getMessage());
         }
 
-        return loader; // Kembalikan loader
+        return loader;
     }
 
     public static void main(String[] args) {
-        System.setProperty("prism.allowhidpi", "false");
         launch(args);
     }
 }

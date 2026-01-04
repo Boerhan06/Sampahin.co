@@ -36,11 +36,11 @@ public class DetailPenggunaController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Load Data Dummy (Ganti dengan data dari Model/Database nanti)
+
         setupUserData();
         setupChartData();
 
-        // 2. Jalankan Animasi
+
         playEntranceAnimation();
         setupHoverEffects();
     }
@@ -51,15 +51,15 @@ public class DetailPenggunaController implements Initializable {
     }
 
     private void setupChartData() {
-        // Membuat seri data untuk grafik
+
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Transaksi");
 
-        // Data Dummy 6 Bulan
+
         series.getData().add(new XYChart.Data<>("Jan", 12));
         series.getData().add(new XYChart.Data<>("Feb", 25));
         series.getData().add(new XYChart.Data<>("Mar", 18));
-        series.getData().add(new XYChart.Data<>("Apr", 40)); // Paling tinggi
+        series.getData().add(new XYChart.Data<>("Apr", 40));
         series.getData().add(new XYChart.Data<>("Mei", 32));
         series.getData().add(new XYChart.Data<>("Jun", 28));
 
@@ -67,7 +67,7 @@ public class DetailPenggunaController implements Initializable {
     }
 
     private void playEntranceAnimation() {
-        // Animasi Slide Up & Fade In untuk seluruh konten tengah
+
         mainContent.setOpacity(0);
         mainContent.setTranslateY(50);
 
@@ -85,9 +85,9 @@ public class DetailPenggunaController implements Initializable {
     }
 
     private void setupHoverEffects() {
-        // Efek Membesar saat mouse di atas kartu Poin
+
         addHoverScale(cardPoin);
-        // Efek Membesar saat mouse di atas kartu Grafik
+
         addHoverScale(cardGrafik);
     }
 

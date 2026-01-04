@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 public class SampahAnorganik extends Sampah {
 
     public SampahAnorganik(String jenisSampah, BigDecimal hargaPoinPerKg) {
-        super(jenisSampah, hargaPoinPerKg); // Panggil constructor Induk
+        super(jenisSampah, hargaPoinPerKg);
     }
 
     public SampahAnorganik(int idSampah, String jenisSampah, BigDecimal hargaPoinPerKg) {
-        super(idSampah, jenisSampah, hargaPoinPerKg); // Panggil constructor Induk
+        super(idSampah, jenisSampah, hargaPoinPerKg);
     }
 
     @Override

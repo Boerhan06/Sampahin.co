@@ -1,0 +1,251 @@
+
+* {
+    -fx-bg-base: #FDFBF7;
+
+    -fx-primary: #844DB8;
+    -fx-primary-dark: #6B3A9E;
+    -fx-primary-light: #9F6DCE;
+
+    -fx-secondary: #ffffff;
+
+    -fx-text-dark: #2D2D2D;
+    -fx-text-grey: #64748B;
+    -fx-text-light: #F8FAFC;
+
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+.root-stack {
+    /* Background dengan sentuhan ungu sangat tipis */
+    -fx-background-color: linear-gradient(to bottom right, #FAF5FF 0%, #F3F4F6 100%);
+}
+
+/* ========================================================== */
+/* ===== TEXT STYLES ===== */
+/* ========================================================== */
+.text-h1 {
+    -fx-font-size: 32px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -fx-text-dark;
+}
+
+.text-h2 {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-text-dark;
+}
+
+.text-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-text-grey;
+}
+
+/* LOGO HEADER */
+.logo-text-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -fx-primary; /* Menjadi Ungu */
+    -fx-letter-spacing: 1px;
+}
+.logo-text-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-text-grey;
+}
+
+/* ========================================================== */
+/* ===== GLASS CARDS ===== */
+/* ========================================================== */
+.glass-card-header {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 20, 0, 0, 5);
+}
+
+.glass-card-primary {
+    /* Gradient Card Utama (Saldo/Info): Ungu Royal ke Ungu Muda */
+    -fx-background-color: linear-gradient(to bottom right, #844DB8, #9F6DCE);
+    -fx-background-radius: 25;
+    /* Shadow berwarna ungu */
+    -fx-effect: dropshadow(three-pass-box, rgba(132, 77, 184, 0.4), 25, 0, 0, 10);
+}
+
+.glass-card-secondary {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 25, 0, 0, 10);
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 25;
+}
+
+.glass-card-table {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 30, 0, 0, 5);
+}
+
+/* ========================================================== */
+/* ===== LABELS INSIDE CARDS ===== */
+/* ========================================================== */
+.card-label-light {
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 1px;
+}
+.card-label-dark {
+    -fx-text-fill: -fx-text-grey;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 1px;
+}
+.card-value-light {
+    -fx-text-fill: white;
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+}
+.card-value-dark {
+    -fx-text-fill: -fx-text-dark;
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+}
+.currency-symbol {
+    -fx-text-fill: rgba(255,255,255,0.7);
+    -fx-font-size: 24px;
+    -fx-padding: 12 0 0 0;
+}
+
+/* ========================================================== */
+/* ===== BUTTONS ===== */
+/* ========================================================== */
+.btn-action-light {
+    -fx-background-color: rgba(255,255,255,0.25);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+.btn-action-light:hover {
+    -fx-background-color: rgba(255,255,255,0.4);
+}
+
+.btn-menu-large-primary {
+    -fx-background-color: -fx-text-dark; /* Tetap gelap agar kontras */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(45, 45, 45, 0.3), 15, 0, 0, 5);
+    -fx-graphic-text-gap: 15;
+}
+.btn-menu-large-primary:hover {
+    -fx-background-color: black;
+    -fx-translate-y: -3;
+}
+
+.btn-menu-large-secondary {
+    -fx-background-color: white;
+    -fx-text-fill: -fx-text-dark;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 15, 0, 0, 5);
+    -fx-graphic-text-gap: 15;
+}
+.btn-menu-large-secondary:hover {
+    /* Hover effect background ungu sangat muda */
+    -fx-background-color: #F3E5F5;
+    -fx-translate-y: -3;
+    -fx-text-fill: -fx-primary;
+}
+
+.btn-logout-glass {
+    /* Tetap merah, karena standar logout */
+    -fx-background-color: rgba(214, 48, 49, 0.1);
+    -fx-text-fill: #D63031;
+    -fx-font-weight: 700;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-padding: 8 20;
+}
+.btn-logout-glass:hover {
+    -fx-background-color: #D63031;
+    -fx-text-fill: white;
+}
+
+.btn-text-only {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary; /* Ungu */
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-text-only:hover {
+    -fx-underline: true;
+    -fx-text-fill: -fx-primary-dark;
+}
+
+/* ========================================================== */
+/* ===== BADGES ===== */
+/* ========================================================== */
+.date-pill {
+    -fx-background-color: white;
+    -fx-text-fill: -fx-text-grey;
+    -fx-font-weight: 600;
+    -fx-background-radius: 50;
+    -fx-padding: 8 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 5, 0, 0, 2);
+}
+
+/* ========================================================== */
+/* ===== MODERN TABLE ===== */
+/* ========================================================== */
+.modern-table {
+    -fx-background-color: transparent;
+    -fx-base: transparent;
+    -fx-control-inner-background: transparent;
+}
+.modern-table .column-header-background {
+    -fx-background-color: transparent;
+}
+.modern-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent transparent #E2E8F0 transparent;
+    -fx-padding: 10 0;
+}
+.modern-table .column-header .label {
+    -fx-text-fill: -fx-text-grey;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+}
+.modern-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
+}
+.modern-table .table-cell {
+    -fx-text-fill: -fx-text-dark;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 15;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Hover effect pada tabel menjadi ungu tint */
+.modern-table .table-row-cell:hover {
+    -fx-background-color: rgba(132, 77, 184, 0.08); /* Ungu transparan */
+    -fx-background-radius: 10;
+}
+
+/* Style tambahan untuk scrollbar agar tidak merusak tema */
+.modern-table .increment-button, .modern-table .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.modern-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #D1C4E9; /* Ungu muda */
+    -fx-background-radius: 5em;
+}

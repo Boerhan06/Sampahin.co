@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1440.0" styleClass="root-pane" stylesheets="@../css/dashboard-style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditProfilController">
+<AnchorPane prefHeight="900.0" prefWidth="1440.0" styleClass="root-pane" stylesheets="@../css/dashboard-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditProfilController">
     <children>
 
         <StackPane styleClass="bg-modern" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -37,7 +37,7 @@
                             <VBox.margin><Insets bottom="40.0" /></VBox.margin>
                             <children>
                                 <Circle fill="WHITE" opacity="0.15" radius="24.0" />
-                                <Label text="S" textFill="WHITE">
+                                <Label text="E" textFill="WHITE">
                                     <font><Font name="System Bold" size="24.0" /></font>
                                 </Label>
                             </children>
@@ -45,16 +45,16 @@
 
                         <VBox alignment="TOP_CENTER" spacing="25.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox onMouseClicked="#handleDashboard" styleClass="nav-item">
+                                <VBox onMouseClicked="#handleNavigateToDashboard" styleClass="nav-item">
                                     <children><SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" styleClass="nav-icon" /></children>
                                 </VBox>
-                                <VBox onMouseClicked="#handleUsers" styleClass="nav-item">
+                                <VBox onMouseClicked="#handleNavigateToDaftarPengguna" styleClass="nav-item">
                                     <children><SVGPath content="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" styleClass="nav-icon" /></children>
                                 </VBox>
-                                <VBox onMouseClicked="#handleWaste" styleClass="nav-item">
+                                <VBox onMouseClicked="#handleNavigateToPemasukanSampah" styleClass="nav-item">
                                     <children><SVGPath content="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" styleClass="nav-icon" /></children>
                                 </VBox>
-                                <VBox onMouseClicked="#handleWithdraw" styleClass="nav-item">
+                                <VBox onMouseClicked="#handleNavigateToRiwayatPenarikan" styleClass="nav-item">
                                     <children><SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" styleClass="nav-icon" /></children>
                                 </VBox>
                             </children>
@@ -76,23 +76,22 @@
                                     <children>
                                         <VBox prefHeight="60.0" prefWidth="390.0">
                                             <Label prefHeight="40.0" prefWidth="279.0" text="Edit Profil" textFill="#1f2937">
-                                                <font>
-                                       <Font name="System Bold" size="28.0" />
-                                    </font>
+                                                <font><Font name="System Bold" size="28.0" /></font>
                                             </Label>
                                             <Label text="Perbarui informasi akun dan keamanan Anda" textFill="#6b7280">
                                                 <font><Font size="14.0" /></font>
                                             </Label>
                                         </VBox>
                                         <Region HBox.hgrow="ALWAYS" />
-                                        <Button onMouseClicked="#handleDashboard" style="-fx-background-color: white; -fx-text-fill: #6b7280; -fx-background-radius: 12; -fx-border-color: #e5e7eb; -fx-border-radius: 12;" text="Kembali">
+
+                                        <Button onMouseClicked="#handleNavigateToDashboard" style="-fx-background-color: white; -fx-text-fill: #6b7280; -fx-background-radius: 12; -fx-border-color: #e5e7eb; -fx-border-radius: 12;" text="Kembali">
                                             <font><Font name="System Bold" size="12.0" /></font>
                                             <padding><Insets bottom="8.0" left="15.0" right="15.0" top="8.0" /></padding>
                                         </Button>
                                     </children>
                                 </HBox>
 
-                                <VBox maxWidth="1168.0" prefHeight="717.0" prefWidth="1168.0" spacing="20.0" styleClass="card-stat">
+                                <VBox maxWidth="1168.0" spacing="20.0" styleClass="card-stat">
                                     <padding><Insets bottom="40.0" left="50.0" right="50.0" top="40.0" /></padding>
                                     <children>
 
@@ -103,9 +102,6 @@
                                                         <Circle fx:id="profileImage" fill="#E0D7F5" radius="60.0" stroke="WHITE" strokeWidth="4.0">
                                                             <effect><DropShadow color="#0000001a" radius="10.0" /></effect>
                                                         </Circle>
-                                                        <Label text="A" textFill="#685bab">
-                                                            <font><Font name="System Bold" size="48.0" /></font>
-                                                        </Label>
 
                                                         <Button onAction="#handleUbahFoto" style="-fx-background-color: #685BAB; -fx-background-radius: 50; -fx-min-width: 36; -fx-min-height: 36; -fx-max-width: 36; -fx-max-height: 36;" StackPane.alignment="BOTTOM_RIGHT">
                                                             <graphic>
@@ -158,7 +154,7 @@
                                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                                             <VBox.margin><Insets top="20.0" /></VBox.margin>
                                             <children>
-                                                <Button onMouseClicked="#handleDashboard" style="-fx-background-color: transparent; -fx-text-fill: #6b7280;" text="Batal">
+                                                <Button onMouseClicked="#handleNavigateToDashboard" style="-fx-background-color: transparent; -fx-text-fill: #6b7280;" text="Batal">
                                                     <font><Font name="System Bold" size="14.0" /></font>
                                                 </Button>
                                                 <Button fx:id="btnSimpan" onAction="#handleSimpan" styleClass="btn-action" text="Simpan Perubahan">

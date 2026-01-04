@@ -15,10 +15,9 @@ import java.util.ResourceBundle;
 public class TukarSampahFormController implements Initializable {
 
     @FXML
-    private VBox formContainer; // Menampung semua input
-
+    private VBox formContainer;
     @FXML
-    private HBox buttonContainer; // Menampung tombol Done/Cancel
+    private HBox buttonContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

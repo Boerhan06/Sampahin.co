@@ -22,26 +22,32 @@ public class MapsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Animasi Masuk untuk Peta (Zoom In / Fade In)
-        playEntranceAnimation(mapContainer, 0);
 
-        // Animasi Masuk untuk List Lokasi (Muncul satu per satu)
-        int delay = 0;
-        for (Node node : listLokasiContainer.getChildren()) {
-            playListAnimation(node, delay);
-            delay += 100; // delay 100ms per item
+        if (mapContainer != null) {
+            playEntranceAnimation(mapContainer, 0);
+        }
+
+
+        if (listLokasiContainer != null) {
+            int delay = 0;
+            for (Node node : listLokasiContainer.getChildren()) {
+                playListAnimation(node, delay);
+                delay += 100;
+            }
         }
     }
 
     private void playEntranceAnimation(Node node, int delay) {
-        // Set awal transparan
+
         node.setOpacity(0);
         node.setTranslateY(20);
+
 
         FadeTransition fade = new FadeTransition(Duration.millis(800), node);
         fade.setFromValue(0);
         fade.setToValue(1);
         fade.setDelay(Duration.millis(delay));
+
 
         TranslateTransition translate = new TranslateTransition(Duration.millis(800), node);
         translate.setFromY(20);
@@ -53,12 +59,15 @@ public class MapsController implements Initializable {
     }
 
     private void playListAnimation(Node node, int delay) {
+
         node.setOpacity(0);
-        node.setTranslateX(50); // Muncul dari kanan
+        node.setTranslateX(50);
+
 
         FadeTransition fade = new FadeTransition(Duration.millis(600), node);
         fade.setToValue(1);
         fade.setDelay(Duration.millis(delay));
+
 
         TranslateTransition translate = new TranslateTransition(Duration.millis(600), node);
         translate.setToX(0);

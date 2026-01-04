@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class SampahOrganik extends Sampah {
 
-    // Atribut khusus Organik
     private ObjectProperty<LocalDate> perkiraanBusuk;
 
     public SampahOrganik(String jenisSampah, BigDecimal hargaPoinPerKg, LocalDate perkiraanBusuk) {
@@ -25,7 +24,6 @@ public class SampahOrganik extends Sampah {
         return "Organik";
     }
 
-    // --- Getter/Setter/Property
     public LocalDate getPerkiraanBusuk() { return perkiraanBusuk.get(); }
     public void setPerkiraanBusuk(LocalDate tanggal) { this.perkiraanBusuk.set(tanggal); }
     public ObjectProperty<LocalDate> perkiraanBusukProperty() { return perkiraanBusuk; }

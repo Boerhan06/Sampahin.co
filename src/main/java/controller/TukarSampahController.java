@@ -9,23 +9,20 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import models.Akun; // Import Akun
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TukarSampahController implements Initializable {
 
-    @FXML
-    private VBox searchContainer;
+    @FXML private VBox searchContainer;
+    @FXML private VBox userListContainer;
+    @FXML private Button btnScanMaps;
+    @FXML private Pane infoPanel;
 
-    @FXML
-    private VBox userListContainer;
-
-    @FXML
-    private Button btnScanMaps;
-
-    @FXML
-    private Pane infoPanel;
+    // --- Variabel Data ---
+    private Akun currentAkun;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,6 +35,10 @@ public class TukarSampahController implements Initializable {
 
         // 3. Animasi List User (Slide Up Berurutan)
         playListCascadingAnimation();
+    }
+
+    public void setAkunData(Akun akun) {
+        this.currentAkun = akun;
     }
 
     private void playSlideDownAnimation(Node node, int delay) {

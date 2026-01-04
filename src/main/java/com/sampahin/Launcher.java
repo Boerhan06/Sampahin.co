@@ -10,6 +10,7 @@ public class Launcher {
         try {
             com.sampahin.Main.main(args);
         } catch (Exception e) {
+
             System.err.println("Failed to launch application:");
             e.printStackTrace();
             System.exit(1);

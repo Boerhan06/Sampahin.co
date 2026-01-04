@@ -7,24 +7,24 @@ import java.time.LocalDateTime;
 public class Admin extends Akun {
 
     private final StringProperty idAdmin;
+    private byte[] fotoProfil;
 
-    // --- Konstruktor Default (Untuk keperluan Register/Form Kosong) ---
     public Admin() {
         super();
         this.idAdmin = new SimpleStringProperty("");
+        this.fotoProfil = null;
     }
 
-    // --- Konstruktor Lengkap (Untuk pengambilan data dari Database via DAO) ---
     public Admin(int idAkun, String namaLengkap, String alamat, String noTelepon,
                  String email, String username, String dbHashedPassword,
                  boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt,
-                 String idAdmin) {
+                 String idAdmin, byte[] fotoProfil) {
 
-        // Mengirim data umum ke Parent Class (Akun)
         super(idAkun, namaLengkap, alamat, noTelepon, email, username,
                 dbHashedPassword, isActive, createdAt, updatedAt);
 
         this.idAdmin = new SimpleStringProperty(idAdmin);
+        this.fotoProfil = fotoProfil;
     }
 
     @Override
@@ -32,10 +32,7 @@ public class Admin extends Akun {
         return "Admin";
     }
 
-    // --- Method Khusus Admin ---
-    // Contoh method placeholder logika bisnis
     public void registrasiPengguna(Pengguna pengguna) {
-        // Logika untuk menyimpan pengguna baru ke DB bisa dipanggil di sini atau di Service
         System.out.println("[LOG] Admin " + this.getNamaLengkap() + " mendaftarkan user: " + pengguna.getNamaLengkap());
     }
 
@@ -43,7 +40,6 @@ public class Admin extends Akun {
         System.out.println("[LOG] Admin " + this.getNamaLengkap() + " mengelola mitra: " + mitra.getNamaLengkap());
     }
 
-    // --- Getter & Setter ID Admin (JavaFX Property Style) ---
     public String getIdAdmin() {
         return idAdmin.get();
     }
@@ -54,5 +50,13 @@ public class Admin extends Akun {
 
     public StringProperty idAdminProperty() {
         return idAdmin;
+    }
+
+    public byte[] getFotoProfil() {
+        return fotoProfil;
+    }
+
+    public void setFotoProfil(byte[] fotoProfil) {
+        this.fotoProfil = fotoProfil;
     }
 }

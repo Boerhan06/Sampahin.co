@@ -4,10 +4,7 @@ import models.Pengguna;
 import models.Penukaran;
 import util.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +12,19 @@ import java.util.List;
 public class PenukaranDAO {
 
     private Connection connection;
-    private PenggunaDAO penggunaDAO; 
+    private PenggunaDAO penggunaDAO;
 
     public PenukaranDAO() {
-        this.connection = DatabaseConnection.getInstance();
-        this.penggunaDAO = new PenggunaDAO(); 
+        // PERBAIKAN: Konsisten menggunakan getInstance().getConnection()
+        this.connection = DatabaseConnection.getInstance().getConnection();
+        this.penggunaDAO = new PenggunaDAO();
     }
 
-    // --- CREATE (C) ---
+    /**
+     * Menyimpan data transaksi penukaran poin ke database.
+     */
     public boolean save(Penukaran penukaran) {
-        String sql = "INSERT INTO penukaran (id_pengguna, poin_ditukar, nilai_rupiah, keterangan, timestamp, status) " +
+        String sql = "INSERT INTO penukaran (idAkun, poinDitukar, nilaiRupiah, keterangan, timestamp, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -38,35 +38,44 @@ public class PenukaranDAO {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
+            System.err.println("[PenukaranDAO] Gagal save transaksi: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
-    // --- READ (R) - Helper Method ---
+    /**
+     * Helper Method: Memetakan baris database ke objek Java Penukaran.
+     */
     private Penukaran mapResultSetToPenukaran(ResultSet rs) throws SQLException {
-        int idPengguna = rs.getInt("id_pengguna");
-        Pengguna pengguna = penggunaDAO.getPenggunaById(idPengguna); 
+        // Ambil ID Akun dari hasil query penukaran
+        int idAkun = rs.getInt("idAkun");
+
+        // PENTING: Pastikan PenggunaDAO.getPenggunaById mengembalikan models.Pengguna
+        Pengguna pengguna = penggunaDAO.getPenggunaById(idAkun);
 
         return new Penukaran(
                 rs.getInt("id_penukaran"),
-                pengguna, 
-                rs.getBigDecimal("poin_ditukar"),
-                rs.getBigDecimal("nilai_rupiah"),
+                pengguna,
+                rs.getBigDecimal("poinDitukar"),
+                rs.getBigDecimal("nilaiRupiah"),
                 rs.getString("keterangan"),
                 rs.getObject("timestamp", LocalDateTime.class),
                 rs.getString("status")
         );
     }
 
-    // --- READ (R) - Single by ID ---
+    /**
+     * Mencari satu data penukaran berdasarkan ID Primary Key.
+     */
     public Penukaran getById(int id) {
         String sql = "SELECT * FROM penukaran WHERE id_penukaran = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return mapResultSetToPenukaran(rs);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToPenukaran(rs);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,33 +83,40 @@ public class PenukaranDAO {
         return null;
     }
 
-    // --- READ (R) - All by Pengguna (Paling Berguna) ---
-    public List<Penukaran> getAllByPengguna(int idPengguna) {
-        String sql = "SELECT * FROM penukaran WHERE id_pengguna = ? ORDER BY timestamp DESC";
+    /**
+     * Mengambil riwayat penukaran poin milik satu pengguna tertentu.
+     */
+    public List<Penukaran> getAllByPengguna(int idAkun) {
+        String sql = "SELECT * FROM penukaran WHERE idAkun = ? ORDER BY timestamp DESC";
         List<Penukaran> listPenukaran = new ArrayList<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, idPengguna);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                listPenukaran.add(mapResultSetToPenukaran(rs));
+            stmt.setInt(1, idAkun);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    listPenukaran.add(mapResultSetToPenukaran(rs));
+                }
             }
         } catch (SQLException e) {
+            System.err.println("[PenukaranDAO] Gagal getAllByPengguna: " + e.getMessage());
             e.printStackTrace();
         }
         return listPenukaran;
     }
 
-    // --- UPDATE (U) ---
+    /**
+     * Memperbarui status penukaran (misal: 'BERHASIL', 'PENDING', atau 'BATAL').
+     */
     public boolean updateStatus(int idPenukaran, String newStatus) {
         String sql = "UPDATE penukaran SET status = ?, timestamp = ? WHERE id_penukaran = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, newStatus);
-            stmt.setObject(2, LocalDateTime.now()); 
+            stmt.setObject(2, LocalDateTime.now());
             stmt.setInt(3, idPenukaran);
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
+            System.err.println("[PenukaranDAO] Gagal update status: " + e.getMessage());
             e.printStackTrace();
             return false;
         }

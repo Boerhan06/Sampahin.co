@@ -16,12 +16,12 @@ public class TitikPengumpulanDAO {
     private Connection connection;
 
     public TitikPengumpulanDAO() {
-        this.connection = DatabaseConnection.getInstance();
+        // PERBAIKAN DI SINI: Tambahkan .getConnection()
+        this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
     // --- CREATE (C) ---
     public boolean save(TitikPengumpulan lokasi) {
-        // PERBAIKAN: Sesuaikan nama tabel dan kolom
         String sql = "INSERT INTO titikkumpul (NamaLokasi, Alamat, Latitude, Longitude) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -40,7 +40,6 @@ public class TitikPengumpulanDAO {
 
     // --- READ (R) - Single by ID ---
     public TitikPengumpulan getById(int id) {
-        // PERBAIKAN: WHERE idLokasi
         String sql = "SELECT * FROM titikkumpul WHERE idLokasi = ?";
         TitikPengumpulan lokasi = null;
 
@@ -49,13 +48,12 @@ public class TitikPengumpulanDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // PERBAIKAN: Ambil data sesuai nama kolom di DB
                 lokasi = new TitikPengumpulan(
-                        rs.getInt("idLokasi"),     // Sesuai DB
-                        rs.getString("NamaLokasi"), // Sesuai DB
-                        rs.getString("Alamat"),     // Sesuai DB
-                        rs.getDouble("Latitude"),   // Kolom Baru
-                        rs.getDouble("Longitude")   // Kolom Baru
+                        rs.getInt("idLokasi"),
+                        rs.getString("NamaLokasi"),
+                        rs.getString("Alamat"),
+                        rs.getDouble("Latitude"),
+                        rs.getDouble("Longitude")
                 );
             }
         } catch (SQLException e) {
@@ -66,7 +64,6 @@ public class TitikPengumpulanDAO {
 
     // --- READ (R) - All ---
     public List<TitikPengumpulan> getAll() {
-        // PERBAIKAN: Nama tabel
         String sql = "SELECT * FROM titikkumpul";
         List<TitikPengumpulan> listLokasi = new ArrayList<>();
 
@@ -90,7 +87,6 @@ public class TitikPengumpulanDAO {
 
     // --- UPDATE (U) ---
     public boolean update(TitikPengumpulan lokasi) {
-        // PERBAIKAN: Sesuaikan nama kolom di query UPDATE
         String sql = "UPDATE titikkumpul SET NamaLokasi = ?, Alamat = ?, Latitude = ?, Longitude = ? WHERE idLokasi = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -110,7 +106,6 @@ public class TitikPengumpulanDAO {
 
     // --- DELETE (D) ---
     public boolean delete(int id) {
-        // PERBAIKAN: WHERE idLokasi
         String sql = "DELETE FROM titikkumpul WHERE idLokasi = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
