@@ -113,13 +113,13 @@
                         </HBox>
 
                         <HBox spacing="30.0">
-                            <Button fx:id="btnBayarSampah" maxWidth="Infinity" onAction="#handleInputSampah" prefHeight="80.0" styleClass="btn-menu-large-primary" text="Input Penjualan Sampah" HBox.hgrow="ALWAYS">
+                            <Button fx:id="btnBayarSampah" maxWidth="Infinity" onAction="#handleInputSampah" prefHeight="80.0" styleClass="btn-menu-large-primary" text="Input Pembelian Sampah" HBox.hgrow="ALWAYS">
                                 <graphic>
                                     <Label style="-fx-font-size: 24px;" text="📥" />
                                 </graphic>
                             </Button>
 
-                            <Button fx:id="btnTarikSaldo" maxWidth="Infinity" onAction="#handleTarikSaldo" prefHeight="80.0" styleClass="btn-menu-large-secondary" text="Tarik Saldo Pendapatan" HBox.hgrow="ALWAYS">
+                            <Button fx:id="btnTarikSaldo" maxWidth="Infinity" onAction="#handleTarikSaldo" prefHeight="80.0" styleClass="btn-menu-large-secondary" text="Tarik Saldo" HBox.hgrow="ALWAYS">
                                 <graphic>
                                     <Label style="-fx-font-size: 24px;" text="💸" />
                                 </graphic>

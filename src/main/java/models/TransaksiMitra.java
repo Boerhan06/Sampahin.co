@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 public class TransaksiMitra {
 
     public enum JenisTransaksi {
-        PEMASUKAN,  // Uang Masuk (Top Up, Jual ke Pengepul) -> HIJAU
-        PENGELUARAN // Uang Keluar (Beli dari Nasabah, Tarik Saldo) -> MERAH
+        PEMASUKAN,
+        PENGELUARAN
     }
 
     private final IntegerProperty idTransaksiMitra;

@@ -1,53 +1,50 @@
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\RiwayatPenarikan.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\util\SessionManager.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\MapsDetailController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\com\sampahin\TesKoneksi.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\SampahB3.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\TransaksiMitraDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\LoadingController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\SampahOrganik.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\util\AlertUtils.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\TitikPengumpulan.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\RegisterController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\MitraDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\MapsController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\TukarPoinGagalController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\TukarSampahController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\DashboardMitraController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\RegisterNextController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\TransaksiSampah.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\SampahAnorganik.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Sampah.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\DashboardController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\TransaksiMitra.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Mitra.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\ProfilController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\PemasukanSampahController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\com\sampahin\CekDatabase.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\SampahDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Pengguna.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\MitraDetailController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Penukaran.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\TukarPoinController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\module-info.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\com.sampahin\Main.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\LoginController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\NotifikasiController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\TransaksiSampahDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\RiwayatPenarikanDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\com\sampahin\Launcher.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Admin.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\PenukaranDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\AdminDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\PemasukanDetailController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\RiwayatPenarikanController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\PenggunaDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\util\DatabaseConnection.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\dao\TitikPengumpulanDAO.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\TukarSampahFormController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\BaseController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\models\Akun.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\DaftarPenggunaController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\DetailPenggunaController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\controller\EditProfilController.java
-C:\Users\Burhan\Downloads\Final Sampahin.co-main\src\main\java\util\HashingUtils.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\PemasukanDetailController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\AdminDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\DashboardMitraController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\TukarSampahFormController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\TitikPengumpulan.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\SampahB3.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\com\sampahin\CekDatabase.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\RiwayatPenarikan.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\MapsDetailController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\DetailPenggunaController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\TransaksiMitraDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Admin.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\com\sampahin\TesKoneksi.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\DashboardController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\DaftarPenggunaController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\BaseController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\PemasukanSampahController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\com.sampahin\Main.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\SampahDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\SampahAnorganik.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Sampah.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\LoadingController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\RegisterController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\TransaksiSampah.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\RiwayatPenarikanController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\MitraDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\TransaksiSampahDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\TransaksiMitra.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\SampahOrganik.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\MitraDetailController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\PenukaranDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\util\SessionManager.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\NotifikasiController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\com\sampahin\Launcher.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\PenggunaDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\RiwayatPenarikanDAO.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\util\HashingUtils.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\util\DatabaseConnection.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\LoginController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\module-info.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Pengguna.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Akun.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\EditProfilController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\TukarSampahController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\ProfilController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\RegisterNextController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\controller\MapsController.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Penukaran.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\models\Mitra.java
+D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\java\dao\TitikPengumpulanDAO.java

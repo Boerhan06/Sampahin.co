@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fbee4422-a0d6-44ad-a676-0db07f7f71bc" name="Changes" comment="ubah" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="module-info" />
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Boerhan06&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Boerhan06/Sampahin.co.git&quot;,
+    &quot;accountId&quot;: &quot;5ffd8011-cdb2-4f5e-abd9-0810c0c3baf4&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="35it6rsHCPGfsaLAfcvsgT6P6hu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CekDatabase.executor": "Run",
+    "Application.FixDataSampah.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Debug",
+    "Application.Run.executor": "Run",
+    "Application.Samoahin run.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "Maven.sampahin-app [clean].executor": "Run",
+    "Maven.sampahin-app [install].executor": "Run",
+    "Maven.sampahin-app [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Kuliah/Semester 3/Pemograman Lanjut/Final Sampahin.co-main/src/main/resources/css",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.4229885"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\resources\css" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\resources\image" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\java\controller" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\resources\view" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\resources\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Final Sampahin.co-main\src\main\resources" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\resources\view" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\resources\css" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main" />
+      <recent name="D:\Kuliah\Semester 3\Pemograman Lanjut\Sampahin\Sampahin.co-main\src\main\java\resources\css" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sampahin.Launcher" />
+      <module name="sampahin-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sampahin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Sampahin.co-main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Sampahin.co-main" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fbee4422-a0d6-44ad-a676-0db07f7f71bc" name="Changes" comment="" />
+      <created>1763604548173</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763604548173</updated>
+    </task>
+    <task id="LOCAL-00001" summary="ubah">
+      <option name="closed" value="true" />
+      <created>1766958440082</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1766958440082</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ubah" />
+    <option name="LAST_COMMIT_MESSAGE" value="ubah" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/sampahin/CekDatabase.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

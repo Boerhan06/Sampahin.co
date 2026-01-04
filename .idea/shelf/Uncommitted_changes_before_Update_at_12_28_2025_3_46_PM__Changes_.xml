@@ -1,0 +1,41 @@
+<changelist name="Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]" date="1766911602858" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 12/28/2025 3:46 PM [Changes]" />
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/TukarPoinController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/TukarPoinController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/controller/DashboardController.class" />
+    <option name="AFTER_PATH" value="target/classes/controller/DashboardController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/DashboardController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/original-sampahin-app-1.0-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="target/sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/sampahin-app-1.0-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/TukarPoinBerhasilController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/TukarPoinBerhasilController.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/VerifikasiTukarPoinController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/VerifikasiTukarPoinController.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/LoadingController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/LoadingController.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/TukarPoinGagalController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/TukarPoinGagalController.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="target/classes/controller/DetailPenggunaController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_28_2025_3_46_PM_[Changes]/DetailPenggunaController.class" />
+  </binary>
+</changelist>

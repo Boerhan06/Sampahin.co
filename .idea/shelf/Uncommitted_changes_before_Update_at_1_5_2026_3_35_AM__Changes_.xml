@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_1_5_2026_3_35_AM_[Changes]" date="1767558980139" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_5_2026_3_35_AM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 1/5/2026 3:35 AM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="target/sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_5_2026_3_35_AM_[Changes]/sampahin-app-1.0-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/original-sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="target/original-sampahin-app-1.0-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_5_2026_3_35_AM_[Changes]/original-sampahin-app-1.0-SNAPSHOT.jar" />
+  </binary>
+</changelist>
