@@ -23,7 +23,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.Mitra;
 import models.TransaksiMitra;
-
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -36,30 +35,20 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashboardMitraController extends BaseController implements Initializable {
-
-
-
+    
     @FXML private VBox contentArea;
     @FXML private ImageView mascotImage;
-
-
     @FXML private Circle shape1;
     @FXML private Circle shape2;
     @FXML private Circle shape3;
-
-
     @FXML private Label lblTanggal;
     @FXML private Label lblSaldo;
     @FXML private Label lblTotalSampah;
     @FXML private Label lblGreeting;
-
-
     @FXML private Button btnLogout;
     @FXML private Button btnBayarSampah;
     @FXML private Button btnTarikSaldo;
     @FXML private Button btnTopUp;
-
-
     @FXML private TableView<TransaksiMitra> tableTransaksi;
     @FXML private TableColumn<TransaksiMitra, LocalDateTime> colTanggal;
     @FXML private TableColumn<TransaksiMitra, BigDecimal> colNominal;
@@ -69,15 +58,11 @@ public class DashboardMitraController extends BaseController implements Initiali
 
     private final TransaksiMitraDAO transaksiDAO = new TransaksiMitraDAO();
     private final MitraDAO mitraDAO = new MitraDAO();
-
     private final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm", new Locale("id", "ID"));
-
-
     private final Map<String, Integer> hargaSampahMap = new HashMap<>();
     private final String[] metodeTopUpList = {"DANA", "BCA", "OVO", "GOPAY"};
     private final String[] bankTujuanList = {"BCA", "BNI", "BSI", "MANDIRI"};
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,13 +75,9 @@ public class DashboardMitraController extends BaseController implements Initiali
 
         setupTableColumns();
         setupCurrentDate();
-
-
         playEntranceAnimations();
         animateBackground();
-
         setupNavigationButtons();
-
         System.out.println("DEBUG: Dashboard Mitra Initialized.");
     }
 
@@ -104,30 +85,24 @@ public class DashboardMitraController extends BaseController implements Initiali
     protected void updateUI() {
         if (currentAkun instanceof Mitra) {
             Mitra sessionMitra = (Mitra) currentAkun;
-
-
             Mitra freshMitra = mitraDAO.getMitraByUsername(sessionMitra.getUsername());
             if (freshMitra != null) {
                 this.currentAkun = freshMitra;
                 sessionMitra = freshMitra;
             }
-
             if (lblGreeting != null) {
                 lblGreeting.setText("Halo, " + sessionMitra.getUsername() + "!");
             }
-
             if (sessionMitra.getSaldo() != null) {
                 lblSaldo.setText(currencyFormat.format(sessionMitra.getSaldo()));
             } else {
                 lblSaldo.setText("Rp 0");
             }
-
             loadTransactionTable(sessionMitra.getUsername());
         }
     }
 
     private void setupTableColumns() {
-
         colTanggal.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         colTanggal.setCellFactory(column -> new TableCell<>() {
             @Override
@@ -136,7 +111,6 @@ public class DashboardMitraController extends BaseController implements Initiali
                 setText((empty || item == null) ? null : item.format(dateFormatter));
             }
         });
-
 
         colBuktiFoto.setText("KETERANGAN");
         colBuktiFoto.setCellValueFactory(new PropertyValueFactory<>("keterangan"));
@@ -152,7 +126,6 @@ public class DashboardMitraController extends BaseController implements Initiali
                 }
             }
         });
-
 
         colNominal.setCellValueFactory(new PropertyValueFactory<>("nominal"));
         colNominal.setCellFactory(column -> new TableCell<>() {
