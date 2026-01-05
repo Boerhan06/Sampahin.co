@@ -20,14 +20,10 @@ public class Main extends Application {
     public void start(Stage stage) {
         primaryStage = stage;
         primaryStage.setTitle("Sampahin.co - Admin System");
-
-
+        
         showLoginView();
-
         primaryStage.show();
     }
-
-
 
     public static void showLoginView() {
         changeScene("/view/LoginView.fxml", "Login System", true);
@@ -41,9 +37,6 @@ public class Main extends Application {
         changeScene("/view/RegisterNextView.fxml", "Registrasi Tahap 2", true);
     }
 
-
-
-
     public static void showDashboardView(Akun akun) {
         if (akun instanceof Mitra) {
 
@@ -53,7 +46,6 @@ public class Main extends Application {
             showViewWithAkun("/view/DashboardView.fxml", "Dashboard Admin", akun);
         }
     }
-
 
     public static void showDashboardMitraView(Akun akun) {
         showViewWithAkun("/view/DashboardMitraView.fxml", "Dashboard Mitra", akun);
@@ -74,9 +66,6 @@ public class Main extends Application {
     public static void showEditProfilView(Akun akun) {
         showViewWithAkun("/view/EditProfilView.fxml", "Edit Profil Saya", akun);
     }
-
-
-
 
     private static void showViewWithAkun(String fxmlPath, String title, Akun akun) {
 
@@ -107,11 +96,9 @@ public class Main extends Application {
                 System.err.println("   Pastikan file ada di folder src/main/resources/view/");
                 return null;
             }
-
-
+            
             loader = new FXMLLoader(url);
             Parent root = loader.load();
-
 
             if (primaryStage.getScene() == null) {
                 primaryStage.setScene(new Scene(root));
@@ -119,37 +106,28 @@ public class Main extends Application {
                 primaryStage.getScene().setRoot(root);
             }
 
-
             primaryStage.setTitle("Sampahin.co - " + title);
 
-
             if (isSmallWindow) {
-
                 primaryStage.setMaximized(false);
                 primaryStage.setWidth(1024);
                 primaryStage.setHeight(650);
                 primaryStage.setResizable(false);
                 primaryStage.centerOnScreen();
             } else {
-
                 primaryStage.setResizable(true);
-
-
                 if (!primaryStage.isMaximized()) {
                     primaryStage.setMaximized(true);
                 }
             }
 
             primaryStage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("❌ Terjadi kesalahan saat memuat view: " + e.getMessage());
         }
-
         return loader;
     }
-
     public static void main(String[] args) {
         launch(args);
     }
