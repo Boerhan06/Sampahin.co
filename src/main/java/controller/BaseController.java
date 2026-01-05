@@ -9,52 +9,35 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import models.Admin;
 import models.Akun;
-
 import java.io.ByteArrayInputStream;
 
 public class BaseController {
-
-
     protected Akun currentAkun;
-
-
     @FXML protected Circle imgSidebarFoto;
     @FXML protected Label lblSidebarNama;
 
-
     public void setAkunData(Akun akun) {
         this.currentAkun = akun;
-
-
         updateSidebar();
-
-
         updateUI();
     }
 
 
     private void updateSidebar() {
         if (currentAkun == null) return;
-
-
         if (lblSidebarNama != null) {
             lblSidebarNama.setText(currentAkun.getNamaLengkap());
         }
 
-
         if (imgSidebarFoto != null) {
-
             if (currentAkun instanceof Admin) {
                 Admin admin = (Admin) currentAkun;
                 byte[] fotoBlob = admin.getFotoProfil();
 
                 if (fotoBlob != null && fotoBlob.length > 0) {
                     try {
-
                         ByteArrayInputStream bis = new ByteArrayInputStream(fotoBlob);
                         Image profileImage = new Image(bis);
-
-
                         imgSidebarFoto.setFill(new ImagePattern(profileImage));
                     } catch (Exception e) {
                         System.err.println("Gagal memuat foto sidebar: " + e.getMessage());
@@ -68,10 +51,7 @@ public class BaseController {
 
 
     protected void updateUI() {
-
     }
-
-
 
     @FXML
     public void handleNavigateToDashboard(MouseEvent event) {
