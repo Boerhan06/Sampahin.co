@@ -68,16 +68,11 @@ public class Main extends Application {
     }
 
     private static void showViewWithAkun(String fxmlPath, String title, Akun akun) {
-
         FXMLLoader loader = changeScene(fxmlPath, title, false);
-
         if (loader != null) {
-
             Object controller = loader.getController();
-
-
+            
             if (controller instanceof BaseController) {
-
                 ((BaseController) controller).setAkunData(akun);
             } else {
                 System.err.println("⚠️ WARNING: Controller untuk " + fxmlPath + " tidak extends BaseController. Data akun tidak terkirim.");
@@ -105,7 +100,7 @@ public class Main extends Application {
             } else {
                 primaryStage.getScene().setRoot(root);
             }
-
+            
             primaryStage.setTitle("Sampahin.co - " + title);
 
             if (isSmallWindow) {
