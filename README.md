@@ -3,7 +3,6 @@
 > **Integrated Waste Management System**
 > 
 > Aplikasi manajemen sampah terintegrasi berbasis desktop/GUI untuk mempermudah pencatatan, pelacakan, dan pengelolaan data sampah secara efisien dan sistematis.
-
 ---
 
 ## 💡 Fitur Utama
